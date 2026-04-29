@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SŽS — Savez za sitne životinje</title>
+<style>
+  :root{
+    --teal:#0E9C90;
+    --teal-dark:#0B847A;
+    --pink:#E50F86;
+    --pink-dark:#C20C72;
+    --blue:#1597D6;
+    --blue-deep:#0E84BD;
+    --ink:#1A1A1A;
+    --muted:#5C5C5C;
+    --line:#E5E8EC;
+    --bg-soft:#F4F7F9;
+    --hero-text:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    color:var(--ink);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* ===== Top utility bar ===== */
+  .topbar{
+    background:var(--bg-soft);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:1280px;
+    margin:0 auto;
+    padding:14px 32px;
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+  /* Logo */
+  .logo{display:flex;flex-direction:column;line-height:1;font-weight:900;text-decoration:none}
+  .logo .mark{
+    font-size:46px;
+    color:var(--teal);
+    letter-spacing:-2px;
+    font-family:"Trebuchet MS","Helvetica Neue",sans-serif;
+  }
+  .logo .mark .dot{color:var(--pink)}
+  .logo .tag{
+    font-size:10.5px;
+    color:var(--pink);
+    font-weight:700;
+    letter-spacing:1px;
+    margin-top:4px;
+  }
+
+  /* Search */
+  .search{
+    flex:1;
+    max-width:430px;
+    display:flex;
+    align-items:stretch;
+    border-radius:6px;
+    overflow:hidden;
+    border:1px solid #D8DEE3;
+    background:#fff;
+  }
+  .search input{
+    flex:1;
+    border:0;
+    padding:12px 16px;
+    font-size:15px;
+    color:#5C5C5C;
+    outline:0;
+    background:transparent;
+  }
+  .search button{
+    border:0;
+    background:var(--teal);
+    color:#fff;
+    width:52px;
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .search button svg{width:18px;height:18px}
+
+  /* Util links */
+  .utils{display:flex;align-items:center;gap:26px}
+  .util{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--teal);
+    font-weight:700;
+    font-size:14.5px;
+  }
+  .util .ic{
+    width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:900;font-size:13px;
+  }
+  .util.help .ic{background:#37B27A}
+  .util.find .ic{background:var(--teal)}
+  .util.my .ic{background:var(--teal)}
+  .donate-btn{
+    background:var(--pink);
+    color:#fff;
+    padding:13px 26px;
+    border-radius:30px;
+    font-weight:800;
+    font-size:15px;
+    display:inline-flex;align-items:center;gap:9px;
+    box-shadow:0 1px 0 rgba(0,0,0,.04);
+  }
+  .donate-btn:hover{background:var(--pink-dark)}
+  .donate-btn .heart{width:16px;height:16px;display:inline-block}
+
+  /* ===== Main nav ===== */
+  .nav{
+    background:#fff;
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1280px;margin:0 auto;
+    padding:0 32px;
+    display:flex;justify-content:space-around;
+  }
+  .nav a{
+    padding:22px 8px;
+    font-weight:800;
+    font-size:16px;
+    color:var(--ink);
+    border-bottom:3px solid transparent;
+    transition:border-color .15s;
+  }
+  .nav a:hover,
+  .nav a.active{border-bottom-color:var(--pink)}
+
+  /* ===== Hero ===== */
+  .hero{
+    background:var(--blue);
+    color:var(--hero-text);
+    overflow:hidden;
+  }
+  .hero-grid{
+    max-width:1280px;margin:0 auto;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+    align-items:stretch;
+  }
+  .hero-text{padding:64px 48px 64px 64px;max-width:560px}
+  .hero-text h1{
+    font-size:54px;
+    line-height:1.05;
+    margin:0 0 22px;
+    font-weight:900;
+    letter-spacing:-0.5px;
+  }
+  .hero-text p{
+    font-size:19px;
+    line-height:1.45;
+    margin:0 0 32px;
+    max-width:460px;
+  }
+  .cta{
+    display:inline-block;
+    background:var(--pink);
+    color:#fff;
+    font-weight:900;
+    font-size:20px;
+    letter-spacing:.5px;
+    padding:18px 36px;
+    border-radius:6px;
+    text-transform:uppercase;
+    box-shadow:0 2px 0 rgba(0,0,0,.08);
+  }
+  .cta:hover{background:var(--pink-dark)}
+  .hero-link{
+    display:block;
+    margin-top:22px;
+    color:#fff;
+    font-style:italic;
+    text-decoration:underline;
+    font-size:15px;
+  }
+  .hero-image{
+    position:relative;
+    background:
+      radial-gradient(ellipse at 30% 40%, #5DBCE6 0%, var(--blue) 60%);
+    min-height:520px;
+    overflow:hidden;
+  }
+  /* fake illustration: rabbit silhouette + station-feel band */
+  .scene{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, #7CC8E8 0%, #B6DBEC 55%, #C7C2B2 55%, #C7C2B2 70%, #6F7572 70%, #6F7572 85%, #4D5350 85%);
+  }
+  .scene::after{
+    content:"";
+    position:absolute;
+    left:6%;right:6%;
+    bottom:14%;
+    height:6px;
+    background:#3A3F3D;
+    box-shadow:0 14px 0 #3A3F3D;
+    border-radius:2px;
+  }
+  .building{
+    position:absolute;
+    right:6%;bottom:24%;
+    width:54%;height:36%;
+    background:#A0928A;
+    border-top:none;
+    border-radius:4px 4px 0 0;
+    box-shadow:inset 0 -10px 0 #6E625B;
+  }
+  .building::before{
+    content:"";position:absolute;left:0;right:0;top:-46px;
+    height:60px;
+    background:#7A6B62;
+    clip-path:polygon(0 100%, 8% 0, 92% 0, 100% 100%);
+  }
+  .building::after{
+    content:"";position:absolute;
+    left:8%;top:18%;
+    width:28%;height:55%;
+    background:#3E2F2A;
+    box-shadow:
+      40% 0 0 #3E2F2A,
+      80% 0 0 #3E2F2A;
+  }
+  /* rabbit (replaces the dog) */
+  .rabbit{
+    position:absolute;
+    left:7%;
+    bottom:14%;
+    width:340px;height:380px;
+    z-index:3;
+  }
+  .rabbit svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+  .cone{
+    position:absolute;
+    left:18%;top:10%;
+    width:78%;height:62%;
+    border-radius:50%;
+    background:radial-gradient(ellipse at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,.45));
+    border:2px solid rgba(255,255,255,.7);
+    transform:rotate(-12deg);
+    z-index:4;
+    pointer-events:none;
+    opacity:.55;
+  }
+  .cone::after{
+    content:"";position:absolute;
+    inset:14% 14% 14% 14%;
+    border-radius:50%;
+    background:rgba(255,255,255,.25);
+  }
+  .badge{
+    position:absolute;
+    right:24%;top:32%;
+    background:#fff;
+    color:var(--teal);
+    font-weight:900;
+    font-size:12px;
+    padding:4px 8px;
+    border-radius:3px;
+    z-index:5;
+    border:1px solid #ddd;
+  }
+  .badge .pink{color:var(--pink)}
+
+  /* ===== Donate strip ===== */
+  .donate-strip{
+    background:#1A1A1A;
+    color:#fff;
+  }
+  .donate-strip-inner{
+    max-width:1280px;margin:0 auto;
+    padding:50px 32px;
+    display:grid;
+    grid-template-columns:340px 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .donate-card{
+    background:#fff;
+    color:var(--ink);
+    padding:28px;
+    border-radius:6px;
+  }
+  .donate-card h3{
+    color:var(--pink);
+    margin:0 0 18px;
+    font-size:26px;
+    font-weight:900;
+  }
+  .toggle{
+    display:flex;
+    border:1px solid var(--pink);
+    border-radius:30px;
+    overflow:hidden;
+    width:fit-content;
+  }
+  .toggle button{
+    border:0;
+    background:#fff;
+    color:var(--pink);
+    padding:10px 28px;
+    font-weight:800;
+    cursor:pointer;
+    font-size:14px;
+  }
+  .toggle button.active{background:var(--pink);color:#fff}
+  .donate-msg h2{
+    margin:0;
+    font-size:34px;
+    line-height:1.2;
+    font-weight:900;
+    color:#fff;
+    max-width:680px;
+  }
+
+  /* ===== Footer-ish helpers ===== */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-image{min-height:340px}
+    .hero-text{padding:48px 28px}
+    .hero-text h1{font-size:40px}
+    .topbar-inner{flex-wrap:wrap;gap:16px}
+    .search{order:3;flex-basis:100%;max-width:none}
+    .nav-inner{overflow-x:auto;justify-content:flex-start;gap:18px}
+    .donate-strip-inner{grid-template-columns:1fr}
+    .donate-msg h2{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== Top utility bar ===== -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="#" class="logo" aria-label="Savez za sitne životinje">
+        <span class="mark">sžs<span class="dot">.</span></span>
+        <span class="tag">DOBROTVORNI SAVEZ ZA SITNE LJUBIMCE</span>
+      </a>
+
+      <form class="search" role="search" onsubmit="event.preventDefault()">
+        <input type="search" placeholder="Šta tražite?">
+        <button aria-label="Pretraga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="utils">
+        <a href="#" class="util help"><span class="ic">+</span>Pomoć</a>
+        <a href="#" class="util find"><span class="ic">◉</span>Pronađi nas</a>
+        <a href="#" class="util my"><span class="ic">◐</span>Moj nalog</a>
+        <a href="#" class="donate-btn">
+          <span class="heart">
+            <svg viewBox="0 0 24 24" fill="#fff" width="16" height="16">
+              <path d="M12 21s-7-4.35-9.5-8.5C.7 9 2.5 5 6.2 5c2 0 3.4 1 3.8 2 .4-1 1.8-2 3.8-2 3.7 0 5.5 4 3.7 7.5C19 16.65 12 21 12 21z"/>
+            </svg>
+          </span>
+          Doniraj
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Main navigation ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="active">Saveti i nega</a>
+      <a href="#">Doniraj</a>
+      <a href="#">Šta radimo</a>
+      <a href="#">Uključi se</a>
+      <a href="#">Prodavnica</a>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>Vodič kroz<br>sitne ljubimce</h1>
+        <p>
+          2 od 3 vlasnika ne uspevaju da pokriju troškove neočekivanog
+          tretmana svog ljubimca. Naš godišnji izveštaj otkriva pritiske
+          i teške izbore sa kojima se susreću porodice koje brinu o
+          zečevima, hrčcima, zamorcima i drugim sitnim životinjama.
+        </p>
+        <a href="#" class="cta">Pročitaj izveštaj</a>
+        <a href="#" class="hero-link"><em>Treba vam pomoć? Pogledajte kako da je dobijete.</em></a>
+      </div>
+
+      <div class="hero-image" aria-hidden="true">
+        <div class="scene"></div>
+        <div class="building"></div>
+
+        <div class="rabbit">
+          <svg viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+            <!-- ears -->
+            <ellipse cx="78" cy="38" rx="14" ry="38" fill="#3D332E"/>
+            <ellipse cx="118" cy="34" rx="14" ry="42" fill="#3D332E"/>
+            <ellipse cx="78" cy="42" rx="6" ry="28" fill="#7A5C50"/>
+            <ellipse cx="118" cy="38" rx="6" ry="32" fill="#7A5C50"/>
+            <!-- head -->
+            <ellipse cx="100" cy="100" rx="55" ry="50" fill="#4A3A33"/>
+            <!-- snout -->
+            <ellipse cx="100" cy="118" rx="22" ry="18" fill="#6E5448"/>
+            <!-- eye -->
+            <circle cx="118" cy="92" r="6" fill="#0E0A08"/>
+            <circle cx="120" cy="90" r="2" fill="#fff"/>
+            <!-- nose -->
+            <ellipse cx="100" cy="112" rx="4" ry="3" fill="#1A0F0B"/>
+            <!-- body -->
+            <ellipse cx="105" cy="180" rx="70" ry="50" fill="#3D332E"/>
+            <!-- foot -->
+            <ellipse cx="60" cy="218" rx="22" ry="10" fill="#2D2622"/>
+            <ellipse cx="150" cy="218" rx="22" ry="10" fill="#2D2622"/>
+          </svg>
+        </div>
+
+        <div class="cone"></div>
+        <div class="badge">s<span class="pink">ž</span>s</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Donate strip ===== -->
+  <section class="donate-strip">
+    <div class="donate-strip-inner">
+      <div class="donate-card">
+        <h3>Doniraj SŽS</h3>
+        <div class="toggle" role="tablist">
+          <button class="active" role="tab">Mesečno</button>
+          <button role="tab">Jednokratno</button>
+        </div>
+      </div>
+      <div class="donate-msg">
+        <h2>2.500 RSD mesečno može da kupi kutiju hirurških rukavica za hitnu intervenciju</h2>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

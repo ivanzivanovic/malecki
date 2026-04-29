@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sitnezivotinje.com — Mockup homepage (Varijanta C)</title>
+
+  <!-- Google Fonts: EB Garamond + Fraunces + Source Sans 3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind via CDN (samo za mockup, u produkciji ide kao build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // tokens.json → color
+            bg:        { DEFAULT: '#FFFFFF', alt: '#F4F1EC', muted: '#FAF8F4' },
+            border:    { DEFAULT: '#E5E1D8', strong: '#C9C2B3', subtle: '#F0EDE6' },
+            ink:       { DEFAULT: '#0F0E0C', secondary: '#3A3833', muted: '#73706A', inverse: '#FFFFFF' },
+            brand:     { DEFAULT: '#1F2A1A', hover: '#0F1A0A', muted: '#E8EBE5' },
+            accent:    { DEFAULT: '#B8763E', hover: '#9A6132', muted: '#E8DFC9' },
+            cat:       {
+              golubarstvo:  '#3B5C7A',
+              zivinarstvo:  '#B5532A',
+              kunicarstvo:  '#8B6F47',
+              ptice:        '#5C8A6B',
+              glodari:      '#A89A7E',
+            },
+          },
+          fontFamily: {
+            display: ['"EB Garamond"', 'Georgia', 'serif'],
+            heading: ['Fraunces', 'Georgia', 'serif'],
+            body:    ['"Source Sans 3"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          letterSpacing: {
+            'eyebrow': '0.15em',
+          },
+          maxWidth: {
+            'prose': '65ch',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Source Sans 3', system-ui, sans-serif; color: #0F0E0C; }
+    .font-display { font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-weight: 500; line-height: 1.05; letter-spacing: -0.02em; }
+    .font-heading { font-family: 'Fraunces', Georgia, serif; font-weight: 600; letter-spacing: -0.01em; }
+    .eyebrow { font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: #B8763E; }
+    .underline-link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    /* Demo placeholder slika — gradient da nema 404 */
+    .img-placeholder {
+      background: linear-gradient(135deg, #E8DFC9 0%, #C9C2B3 50%, #B8763E 100%);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(15, 14, 12, 0.4); font-style: italic; font-family: 'EB Garamond', serif;
+    }
+    .img-placeholder.dark {
+      background: linear-gradient(135deg, #3A3833 0%, #1F2A1A 100%);
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .img-placeholder.golub {
+      background: linear-gradient(135deg, #C9C2B3 0%, #3B5C7A 100%);
+    }
+    .img-placeholder.kokos {
+      background: linear-gradient(135deg, #E8DFC9 0%, #B5532A 100%);
+    }
+    .img-placeholder.kunic {
+      background: linear-gradient(135deg, #E5E1D8 0%, #8B6F47 100%);
+    }
+    .img-placeholder.ptica {
+      background: linear-gradient(135deg, #F0EDE6 0%, #5C8A6B 100%);
+    }
+    .img-placeholder.glodar {
+      background: linear-gradient(135deg, #FAF8F4 0%, #A89A7E 100%);
+    }
+  </style>
+</head>
+<body class="bg-bg text-ink antialiased">
+
+<!-- ============================== HEADER ============================== -->
+<header class="sticky top-0 z-20 bg-bg/95 backdrop-blur border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-baseline gap-2">
+      <span class="font-display text-2xl">sitnezivotinje</span>
+      <span class="font-body text-xs text-ink-muted">.com</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#" class="text-ink hover:text-accent transition-colors">Kalendar</a>
+      <a href="#" class="text-ink hover:text-accent transition-colors">Kategorije</a>
+      <a href="#" class="text-ink hover:text-accent transition-colors">Rase</a>
+      <a href="#" class="text-ink hover:text-accent transition-colors">Savezi</a>
+      <a href="#" class="text-ink hover:text-accent transition-colors">Blog</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <button aria-label="Pretraga" class="p-2 hover:text-accent transition-colors">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <span class="text-xs text-ink-muted font-medium tracking-wider">SR · ЋИР · EN</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============================== HERO — FEATURED EVENT ============================== -->
+<section class="border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-16 lg:py-24">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+      <div>
+        <p class="eyebrow mb-6">Sledeća velika manifestacija</p>
+        <h1 class="font-display text-5xl lg:text-7xl mb-8 text-ink">
+          Međunarodna izložba<br/>
+          sitnih životinja<br/>
+          Vršac <span class="text-accent">2026</span>
+        </h1>
+
+        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-ink-secondary mb-6">
+          <span class="flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Vršac, Srbija
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            25 — 27. oktobar 2026
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Za 4 dana 18 sati
+          </span>
+        </div>
+
+        <p class="text-lg text-ink-secondary leading-relaxed mb-10 max-w-prose">
+          Tradicionalna međunarodna izložba sa preko 200 izlagača iz Srbije,
+          Bosne, Hrvatske, Mađarske i Nemačke. Kategorije: golubovi, perad,
+          kunići i ukrasne ptice. Uz izložbu i prateća berza.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <a href="#" class="inline-flex items-center gap-2 bg-brand text-ink-inverse px-6 py-3 text-sm font-semibold hover:bg-brand-hover transition-colors">
+            Detalji manifestacije
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="inline-flex items-center gap-2 border border-ink px-6 py-3 text-sm font-semibold hover:bg-ink hover:text-ink-inverse transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Dodaj u kalendar
+          </a>
+        </div>
+      </div>
+
+      <div class="aspect-[4/5] w-full" style="background-image:url('../images/kunic%20(1).jpg');background-size:cover;background-position:center;"></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================== KALENDAR PREVIEW ============================== -->
+<section class="border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-20">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <p class="eyebrow mb-3">Naredne manifestacije</p>
+        <h2 class="font-display text-4xl lg:text-5xl">Kalendar</h2>
+      </div>
+      <a href="#" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium underline-link hover:text-accent transition-colors">
+        Vidi sve manifestacije
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- EventCard 1 -->
+      <article class="group">
+        <div class="aspect-[4/5] mb-4 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/kunic%20(2).jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-2"><span class="inline-block w-2 h-2 bg-cat-zivinarstvo mr-2 rounded-full"></span>Izložba · živinarstvo</p>
+        <h3 class="font-heading text-xl leading-snug mb-3">Tradicionalna izložba Subotica</h3>
+        <div class="flex flex-col gap-1 text-sm text-ink-muted">
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+            Subotica, Srbija
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+            25 — 27. nov 2026
+          </span>
+        </div>
+      </article>
+
+      <!-- EventCard 2 -->
+      <article class="group">
+        <div class="aspect-[4/5] mb-4 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/kunic%20(3).jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-2"><span class="inline-block w-2 h-2 bg-cat-golubarstvo mr-2 rounded-full"></span>Berza · golubarstvo</p>
+        <h3 class="font-heading text-xl leading-snug mb-3">Prolećna berza Sombor</h3>
+        <div class="flex flex-col gap-1 text-sm text-ink-muted">
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+            Sombor, Srbija
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+            14. mart 2026
+          </span>
+        </div>
+      </article>
+
+      <!-- EventCard 3 -->
+      <article class="group">
+        <div class="aspect-[4/5] mb-4 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/kunic%20(4).jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-2"><span class="inline-block w-2 h-2 bg-cat-kunicarstvo mr-2 rounded-full"></span>Specijalka · kunićarstvo</p>
+        <h3 class="font-heading text-xl leading-snug mb-3">Memorijalni kup Davor Konjević</h3>
+        <div class="flex flex-col gap-1 text-sm text-ink-muted">
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+            Gudovac, Hrvatska
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+            5 — 6. dec 2026
+          </span>
+        </div>
+      </article>
+
+      <!-- EventCard 4 -->
+      <article class="group">
+        <div class="aspect-[4/5] mb-4 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/hrcak.jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-2"><span class="inline-block w-2 h-2 bg-cat-ptice mr-2 rounded-full"></span>Sajam · ptice, akvaristika</p>
+        <h3 class="font-heading text-xl leading-snug mb-3">EgZoo Mania Budimpešta</h3>
+        <div class="flex flex-col gap-1 text-sm text-ink-muted">
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+            Budimpešta, Mađarska
+          </span>
+          <span class="flex items-center gap-2">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/></svg>
+            14 — 15. feb 2026
+          </span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== KATEGORIJE ============================== -->
+<section class="bg-bg-alt border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-20">
+    <div class="text-center mb-12">
+      <p class="eyebrow mb-3">Istraži po kategoriji</p>
+      <h2 class="font-display text-4xl lg:text-5xl">Šta tražiš?</h2>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <!-- Kategorija 1 -->
+      <a href="#" class="group bg-bg p-8 border border-border hover:border-strong transition-colors block">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center text-cat-golubarstvo">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 36c0-12 8-20 20-20s20 8 20 20c0 4-2 8-6 10-4 2-10 2-14 0-4-2-6-6-6-10z"/><circle cx="38" cy="30" r="2" fill="currentColor"/></svg>
+        </div>
+        <h3 class="font-heading text-xl mb-2">Golubarstvo</h3>
+        <p class="text-sm text-ink-muted mb-4 leading-relaxed">Visokoletači, prevrtači, gušani, ukrasni golubovi.</p>
+        <p class="text-xs font-semibold text-accent group-hover:underline">12 rasa →</p>
+      </a>
+
+      <!-- Kategorija 2 -->
+      <a href="#" class="group bg-bg p-8 border border-border hover:border-strong transition-colors block">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center text-cat-zivinarstvo">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 24c0-6 6-10 12-10s12 4 12 12c0 8-6 16-14 18-6 0-12-2-14-8-2-6 4-12 4-12z"/><path d="M30 18l-2-6M34 18l2-6"/></svg>
+        </div>
+        <h3 class="font-heading text-xl mb-2">Živinarstvo</h3>
+        <p class="text-sm text-ink-muted mb-4 leading-relaxed">Rasne kokoške, patuljaste rase, patke, guske, fazani.</p>
+        <p class="text-xs font-semibold text-accent group-hover:underline">8 rasa →</p>
+      </a>
+
+      <!-- Kategorija 3 -->
+      <a href="#" class="group bg-bg p-8 border border-border hover:border-strong transition-colors block">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center text-cat-kunicarstvo">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M28 14c-2-4-2-10 2-10s4 6 4 10M36 14c2-4 2-10-2-10s-4 6-4 10"/><ellipse cx="32" cy="36" rx="14" ry="16"/></svg>
+        </div>
+        <h3 class="font-heading text-xl mb-2">Kunićarstvo</h3>
+        <p class="text-sm text-ink-muted mb-4 leading-relaxed">Od patuljastih do džinovskih rasa kunića.</p>
+        <p class="text-xs font-semibold text-accent group-hover:underline">6 rasa →</p>
+      </a>
+
+      <!-- Kategorija 4 -->
+      <a href="#" class="group bg-bg p-8 border border-border hover:border-strong transition-colors block">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center text-cat-ptice">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 32c0-10 8-18 18-18s18 8 18 18-8 18-18 18-18-8-18-18z"/><path d="M40 24l8-8M48 24l-8-8"/></svg>
+        </div>
+        <h3 class="font-heading text-xl mb-2">Ptice</h3>
+        <p class="text-sm text-ink-muted mb-4 leading-relaxed">Kanarinci, papagaji, egzote.</p>
+        <p class="text-xs font-semibold text-accent group-hover:underline">14 rasa →</p>
+      </a>
+
+      <!-- Kategorija 5 -->
+      <a href="#" class="group bg-bg p-8 border border-border hover:border-strong transition-colors block">
+        <div class="w-14 h-14 mb-6 flex items-center justify-center text-cat-glodari">
+          <svg width="48" height="48" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><circle cx="32" cy="34" r="18"/><circle cx="22" cy="22" r="6"/><circle cx="42" cy="22" r="6"/></svg>
+        </div>
+        <h3 class="font-heading text-xl mb-2">Glodari</h3>
+        <p class="text-sm text-ink-muted mb-4 leading-relaxed">Zamorčići, hrčci i ostali sitni ljubimci.</p>
+        <p class="text-xs font-semibold text-accent group-hover:underline">5 rasa →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BLOG PREVIEW ============================== -->
+<section class="border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-20">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <p class="eyebrow mb-3">Sa bloga</p>
+        <h2 class="font-display text-4xl lg:text-5xl">Najnoviji članci</h2>
+      </div>
+      <a href="#" class="hidden sm:inline-flex items-center gap-2 text-sm font-medium underline-link hover:text-accent transition-colors">
+        Svi članci
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- ArticleCard 1 -->
+      <article class="group">
+        <div class="aspect-[16/9] mb-5 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/kunic%20(3).jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-3">Golubarstvo</p>
+        <h3 class="font-heading text-2xl leading-snug mb-3 group-hover:text-accent transition-colors">
+          Kako sam za 5 godina odgojio prvog šampiona Srpskog visokoletača
+        </h3>
+        <p class="text-ink-secondary leading-relaxed mb-4">
+          Pet godina rada, sto puta odustajanja, jedna izložba koja je sve promenila — priča iz prve ruke.
+        </p>
+        <div class="flex items-center gap-3 text-sm text-ink-muted">
+          <span class="font-medium text-ink-secondary">Marko Petrović</span>
+          <span>·</span>
+          <span>12 min čitanja</span>
+        </div>
+      </article>
+
+      <!-- ArticleCard 2 -->
+      <article class="group">
+        <div class="aspect-[16/9] mb-5 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/kunic%20(2).jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-3">Kunićarstvo</p>
+        <h3 class="font-heading text-2xl leading-snug mb-3 group-hover:text-accent transition-colors">
+          Ishrana mladih kunića — šta naša literatura krije
+        </h3>
+        <p class="text-ink-secondary leading-relaxed mb-4">
+          Pregled domaćih i evropskih izvora, sa praktičnim primerima iz uzgajivačnice u Sremskoj Mitrovici.
+        </p>
+        <div class="flex items-center gap-3 text-sm text-ink-muted">
+          <span class="font-medium text-ink-secondary">Jelena Mitrović</span>
+          <span>·</span>
+          <span>7 min čitanja</span>
+        </div>
+      </article>
+
+      <!-- ArticleCard 3 -->
+      <article class="group">
+        <div class="aspect-[16/9] mb-5 group-hover:opacity-90 transition-opacity" style="background-image:url('../images/hrcak.jpg');background-size:cover;background-position:center;"></div>
+        <p class="eyebrow mb-3">Živinarstvo</p>
+        <h3 class="font-heading text-2xl leading-snug mb-3 group-hover:text-accent transition-colors">
+          Bosanska džudža — autohtona rasa pred priznavanjem na EE
+        </h3>
+        <p class="text-ink-secondary leading-relaxed mb-4">
+          Razgovor sa Milošem Stankovićem iz Doboja o decenijskoj borbi za standardizaciju.
+        </p>
+        <div class="flex items-center gap-3 text-sm text-ink-muted">
+          <span class="font-medium text-ink-secondary">Redakcija</span>
+          <span>·</span>
+          <span>9 min čitanja</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SAVEZI ============================== -->
+<section class="bg-bg-alt border-b border-border">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-20">
+    <div class="text-center mb-12">
+      <p class="eyebrow mb-3">Zajednica</p>
+      <h2 class="font-display text-4xl lg:text-5xl mb-4">Nacionalni savezi</h2>
+      <p class="text-ink-secondary max-w-prose mx-auto">
+        Krovne organizacije sitnih životinja u Srbiji, regionu i Evropi.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-border">
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇷🇸</div>
+        <p class="font-heading text-lg mb-1">AOS Srbija</p>
+        <p class="text-xs text-ink-muted">Asocijacija odgajivača</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇭🇷</div>
+        <p class="font-heading text-lg mb-1">HSUGPKPZ</p>
+        <p class="text-xs text-ink-muted">Hrvatski savez</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇸🇮</div>
+        <p class="font-heading text-lg mb-1">SDGPMŽ</p>
+        <p class="text-xs text-ink-muted">Slovensko društvo</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇧🇦</div>
+        <p class="font-heading text-lg mb-1">Savez BiH</p>
+        <p class="text-xs text-ink-muted">Federacija + RS</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇲🇪</div>
+        <p class="font-heading text-lg mb-1">Crna Gora</p>
+        <p class="text-xs text-ink-muted">Udruženja CG</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇲🇰</div>
+        <p class="font-heading text-lg mb-1">Makedonski vrtač</p>
+        <p class="text-xs text-ink-muted">Strumica</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇭🇺</div>
+        <p class="font-heading text-lg mb-1">MGKSZ</p>
+        <p class="text-xs text-ink-muted">Mađarski savez</p>
+      </a>
+      <a href="#" class="group bg-bg-alt hover:bg-bg p-8 text-center transition-colors">
+        <div class="text-3xl mb-3">🇪🇺</div>
+        <p class="font-heading text-lg mb-1">EE Europe</p>
+        <p class="text-xs text-ink-muted">Krovna evropska</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== NEWSLETTER ============================== -->
+<section class="border-b border-border">
+  <div class="max-w-[768px] mx-auto px-6 lg:px-8 py-20 text-center">
+    <p class="eyebrow mb-4">Mesečno</p>
+    <h2 class="font-display text-4xl lg:text-5xl mb-4">Sve manifestacije, jedno pismo</h2>
+    <p class="text-lg text-ink-secondary mb-10">
+      Pregled svih izložbi, berzi i specijalki koje slede u narednom mesecu — direktno na email.
+      Bez spam-a, bez kolačića, otkazujete jednim klikom.
+    </p>
+    <form class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+      <input type="email" placeholder="vasa@adresa.rs" required
+             class="flex-1 px-4 py-3 border border-border bg-bg text-ink placeholder:text-ink-muted focus:outline-none focus:border-ink transition-colors" />
+      <button type="submit" class="bg-brand text-ink-inverse px-6 py-3 font-semibold text-sm hover:bg-brand-hover transition-colors">
+        Prijavi se
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="bg-brand text-ink-inverse">
+  <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div class="col-span-2 md:col-span-1">
+        <p class="font-display text-2xl mb-3">sitnezivotinje<span class="text-accent">.com</span></p>
+        <p class="text-sm text-white/60 leading-relaxed">
+          Portal i zajednica odgajivača sitnih životinja u Srbiji i regionu.
+        </p>
+      </div>
+      <div>
+        <p class="eyebrow text-white/60 mb-4">Sajt</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-accent transition-colors">Kalendar</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Kategorije</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Rase</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Savezi</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow text-white/60 mb-4">O nama</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-accent transition-colors">Misija</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Kontakt</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Predloži manifestaciju</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Saradnja</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow text-white/60 mb-4">Pravno</p>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-accent transition-colors">Uslovi korišćenja</a></li>
+          <li><a href="#" class="hover:text-accent transition-colors">Politika privatnosti</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+      <p class="text-xs text-white/50">© 2026 sitnezivotinje.com. Sva prava zadržana.</p>
+      <div class="flex gap-4 text-white/60">
+        <a href="#" aria-label="Facebook" class="hover:text-accent transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5C10.5 7 12 5.7 14.2 5.7c1 0 2.1.2 2.1.2v2.4h-1.2c-1.2 0-1.5.7-1.5 1.5V12h2.6l-.4 3h-2.2v7A10 10 0 0 0 22 12z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram" class="hover:text-accent transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="hover:text-accent transition-colors">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.1-1C16.7 3.5 12 3.5 12 3.5s-4.7 0-8 .2c-.4 0-1.3 0-2.1 1C1.2 5.4 1 7 1 7S.7 8.9.7 10.7v1.6c0 1.9.3 3.7.3 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.8.2 7.7.2 7.7.2s4.7 0 8-.2c.4 0 1.3 0 2.1-1 .7-.7.9-2.3.9-2.3s.3-1.9.3-3.7v-1.6C23.3 8.9 23 7 23 7zM9.7 14.6V8l6.2 3.3-6.2 3.3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

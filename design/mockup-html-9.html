@@ -1,0 +1,588 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SŽS — Savez za sitne životinje</title>
+<style>
+  :root{
+    --teal:#0E9C90;
+    --teal-dark:#0B847A;
+    --pink:#E50F86;
+    --pink-dark:#C20C72;
+    --blue:#1597D6;
+    --ink:#1A1A1A;
+    --muted:#5C5C5C;
+    --line:#E5E8EC;
+    --bg-soft:#F4F7F9;
+    --footer:#5A5A58;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    color:var(--ink);
+    background:#fff;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ===== Top utility bar ===== */
+  .topbar{background:var(--bg-soft);border-bottom:1px solid var(--line)}
+  .topbar-inner{
+    max-width:1280px;margin:0 auto;
+    padding:14px 32px;
+    display:flex;align-items:center;gap:28px;
+  }
+  .logo{display:flex;flex-direction:column;line-height:1;font-weight:900}
+  .logo .mark{
+    font-size:46px;color:var(--teal);letter-spacing:-2px;
+    font-family:"Trebuchet MS","Helvetica Neue",sans-serif;
+  }
+  .logo .mark .dot{color:var(--pink)}
+  .logo .tag{
+    font-size:10.5px;color:var(--pink);font-weight:700;
+    letter-spacing:1px;margin-top:4px;
+  }
+
+  .search{
+    flex:1;max-width:430px;
+    display:flex;align-items:stretch;
+    border-radius:6px;overflow:hidden;
+    border:1px solid #D8DEE3;background:#fff;
+  }
+  .search input{
+    flex:1;border:0;padding:12px 16px;
+    font-size:15px;color:#5C5C5C;outline:0;background:transparent;
+  }
+  .search button{
+    border:0;background:var(--teal);color:#fff;width:52px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .search button svg{width:18px;height:18px}
+
+  .utils{display:flex;align-items:center;gap:26px}
+  .util{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--teal);font-weight:700;font-size:14.5px;
+  }
+  .util .ic{
+    width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:900;font-size:13px;
+  }
+  .util.help .ic{background:#37B27A}
+  .util.find .ic{background:var(--teal)}
+  .util.my .ic{background:var(--teal)}
+  .donate-btn{
+    background:var(--pink);color:#fff;
+    padding:13px 26px;border-radius:30px;
+    font-weight:800;font-size:15px;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .donate-btn:hover{background:var(--pink-dark)}
+
+  /* ===== Main nav ===== */
+  .nav{background:#fff;border-bottom:1px solid var(--line)}
+  .nav-inner{
+    max-width:1280px;margin:0 auto;padding:0 32px;
+    display:flex;justify-content:space-around;
+  }
+  .nav a{
+    padding:22px 8px;font-weight:800;font-size:16px;
+    color:var(--ink);border-bottom:3px solid transparent;
+    transition:border-color .15s;
+  }
+  .nav a:hover,.nav a.active{border-bottom-color:var(--pink)}
+
+  /* ===== Hero ===== */
+  .hero{background:var(--blue);color:#fff;overflow:hidden}
+  .hero-grid{
+    max-width:1280px;margin:0 auto;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  }
+  .hero-text{padding:64px 48px 64px 64px;max-width:560px}
+  .hero-text h1{
+    font-size:54px;line-height:1.05;margin:0 0 22px;
+    font-weight:900;letter-spacing:-0.5px;
+  }
+  .hero-text p{font-size:19px;line-height:1.45;margin:0 0 32px;max-width:460px}
+  .cta{
+    display:inline-block;background:var(--pink);color:#fff;
+    font-weight:900;font-size:20px;letter-spacing:.5px;
+    padding:18px 36px;border-radius:6px;text-transform:uppercase;
+    box-shadow:0 2px 0 rgba(0,0,0,.08);
+  }
+  .cta:hover{background:var(--pink-dark)}
+  .hero-link{
+    display:block;margin-top:22px;color:#fff;
+    font-style:italic;text-decoration:underline;font-size:15px;
+  }
+  .hero-image{
+    position:relative;min-height:520px;overflow:hidden;
+    background:linear-gradient(180deg,#7CC8E8 0%,#B6DBEC 55%,#C7C2B2 55%,#C7C2B2 70%,#6F7572 70%,#6F7572 85%,#4D5350 85%);
+  }
+  .hero-image::after{
+    content:"";position:absolute;left:6%;right:6%;bottom:14%;
+    height:6px;background:#3A3F3D;
+    box-shadow:0 14px 0 #3A3F3D;border-radius:2px;
+  }
+  .building{
+    position:absolute;right:6%;bottom:24%;
+    width:54%;height:36%;background:#A0928A;border-radius:4px 4px 0 0;
+    box-shadow:inset 0 -10px 0 #6E625B;
+  }
+  .building::before{
+    content:"";position:absolute;left:0;right:0;top:-46px;height:60px;
+    background:#7A6B62;clip-path:polygon(0 100%,8% 0,92% 0,100% 100%);
+  }
+  .building::after{
+    content:"";position:absolute;left:8%;top:18%;width:28%;height:55%;
+    background:#3E2F2A;
+    box-shadow:40% 0 0 #3E2F2A,80% 0 0 #3E2F2A;
+  }
+  .rabbit{position:absolute;left:7%;bottom:14%;width:340px;height:380px;z-index:3}
+  .rabbit svg{width:100%;height:100%;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+  .cone{
+    position:absolute;left:18%;top:10%;width:78%;height:62%;
+    border-radius:50%;
+    background:radial-gradient(ellipse at 30% 30%,rgba(255,255,255,.85),rgba(255,255,255,.45));
+    border:2px solid rgba(255,255,255,.7);
+    transform:rotate(-12deg);z-index:4;pointer-events:none;opacity:.55;
+  }
+  .badge{
+    position:absolute;right:24%;top:32%;
+    background:#fff;color:var(--teal);font-weight:900;font-size:12px;
+    padding:4px 8px;border-radius:3px;z-index:5;border:1px solid #ddd;
+  }
+  .badge .pink{color:var(--pink)}
+
+  /* ===== Donate strip ===== */
+  .donate-strip{background:#1A1A1A;color:#fff;position:relative}
+  .donate-strip-inner{
+    max-width:1280px;margin:0 auto;padding:50px 32px;
+    display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:center;
+    position:relative;
+  }
+  .donate-bg{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.65) 30%,rgba(0,0,0,.15) 60%,rgba(0,0,0,.4) 100%),
+      radial-gradient(ellipse at 75% 50%, #6B5C50 0%, #2C2622 70%);
+  }
+  .donate-bg::after{
+    content:"";position:absolute;right:5%;top:10%;width:38%;height:80%;
+    background:radial-gradient(ellipse at center,#9D8E80 0%,transparent 60%);
+    opacity:.6;
+  }
+  .donate-card{
+    background:#fff;color:var(--ink);
+    padding:24px;border-radius:6px;position:relative;z-index:2;
+  }
+  .donate-card h3{
+    color:var(--pink);margin:0 0 16px;font-size:24px;font-weight:900;
+  }
+  .toggle{
+    display:flex;border:1px solid var(--pink);
+    border-radius:30px;overflow:hidden;width:fit-content;margin-bottom:18px;
+  }
+  .toggle button{
+    border:0;background:#fff;color:var(--pink);
+    padding:9px 26px;font-weight:800;cursor:pointer;font-size:13px;
+  }
+  .toggle button.active{background:var(--pink);color:#fff}
+  .donate-card .lbl{font-size:13px;color:var(--muted);margin:0 0 10px;text-align:center}
+  .amounts{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:14px;
+  }
+  .amounts button{
+    border:1px solid var(--pink);background:var(--pink);color:#fff;
+    padding:10px 0;border-radius:4px;font-weight:800;font-size:13px;cursor:pointer;
+  }
+  .amounts button.alt{background:#fff;color:var(--pink)}
+  .info-row{
+    display:flex;align-items:center;gap:10px;
+    border:1px solid var(--line);border-radius:4px;
+    padding:10px;margin-bottom:14px;font-size:11.5px;line-height:1.35;color:var(--ink);
+  }
+  .info-row .ic{
+    width:34px;height:34px;flex:0 0 34px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .info-row .ic svg{width:30px;height:30px;color:var(--teal)}
+  .custom-amount{
+    display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;
+  }
+  .custom-amount .field{
+    display:flex;align-items:center;border:1px solid #cfd5da;border-radius:4px;
+    padding:6px 8px;font-size:13px;flex:1;justify-content:space-between;
+  }
+  .custom-amount .field input{border:0;outline:0;width:60px;text-align:right;font-weight:700}
+  .donate-submit{
+    width:100%;background:var(--pink);color:#fff;border:0;
+    padding:14px;border-radius:4px;font-weight:900;font-size:14px;
+    text-transform:uppercase;cursor:pointer;letter-spacing:.5px;
+  }
+  .donate-msg{position:relative;z-index:2}
+  .donate-msg h2{
+    margin:0;font-size:34px;line-height:1.2;font-weight:900;color:#fff;max-width:680px;
+  }
+
+  /* ===== Two-column promo ===== */
+  .section{max-width:1280px;margin:0 auto;padding:36px 32px}
+  .promo-2{
+    display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  }
+  .promo{
+    border-radius:4px;overflow:hidden;
+    min-height:240px;display:flex;flex-direction:column;justify-content:space-between;
+    color:#fff;padding:28px;
+  }
+  .promo h3{margin:0 0 14px;font-size:24px;font-weight:900;line-height:1.15}
+  .promo p{margin:0 0 16px;font-size:14.5px;line-height:1.45;max-width:300px}
+  .promo .btn{
+    background:#fff;color:var(--teal);font-weight:900;font-size:14px;
+    padding:14px 22px;border-radius:4px;text-align:center;text-transform:uppercase;
+    align-self:stretch;letter-spacing:.5px;
+  }
+  .promo.teal{background:var(--teal)}
+  .promo.image{
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.0) 0%,rgba(0,0,0,.0) 40%,transparent 100%),
+      linear-gradient(135deg,#9CC766 0%,#5E9A33 100%);
+    position:relative;
+  }
+  .promo.image::after{
+    content:"";position:absolute;right:-10%;bottom:0;width:60%;height:100%;
+    background:
+      radial-gradient(circle at 60% 40%, #C9914F 0%, #A06B2D 25%, transparent 60%),
+      radial-gradient(circle at 60% 80%, #6E4827 0%, transparent 50%);
+    opacity:.95;
+  }
+  .promo.image h3,.promo.image p{position:relative;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .promo.image .btn{position:relative;z-index:2;width:fit-content;min-width:50%}
+
+  /* ===== Three-column promo ===== */
+  .promo-3{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:start;
+  }
+  .card{
+    display:flex;flex-direction:column;
+  }
+  .card .img{
+    width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;margin-bottom:14px;
+    background-size:cover;background-position:center;
+  }
+  .card .img.dog-vet{
+    background:
+      linear-gradient(135deg,#C8B4A0 0%,#8B7560 50%,#3E2D22 100%);
+    position:relative;
+  }
+  .card .img.dog-vet::after{
+    content:"";position:absolute;left:30%;top:30%;width:55%;height:65%;
+    border-radius:50%;background:radial-gradient(ellipse at 40% 40%,#1A0F0A 0%,#3E2D22 60%,transparent 80%);
+  }
+  .card .img.store{
+    background:linear-gradient(180deg,#E8F1E0 0%,#D4E5C8 100%);
+    position:relative;
+  }
+  .card .img.store::after{
+    content:"";position:absolute;inset:25% 20%;
+    background:
+      linear-gradient(90deg,#4DB6AC 0%,#4DB6AC 18%,transparent 18%,transparent 22%,#F8B8D0 22%,#F8B8D0 40%,transparent 40%,transparent 44%,#4DB6AC 44%,#4DB6AC 62%,transparent 62%,transparent 66%,#F8B8D0 66%,#F8B8D0 84%,transparent 84%);
+    border-radius:6px;
+  }
+  .card .img.dog-grass{
+    background:
+      radial-gradient(ellipse at 50% 80%,#FFD78A 0%,#7BA858 30%,#3E6B2C 70%);
+    position:relative;
+  }
+  .card .img.dog-grass::after{
+    content:"";position:absolute;left:35%;top:30%;width:30%;height:55%;
+    background:radial-gradient(ellipse at 50% 30%,#C9914F 0%,#7E4D24 80%);
+    border-radius:50% 50% 40% 40%;
+  }
+  .card h3{margin:4px 0 8px;font-size:18px;font-weight:900;color:var(--ink)}
+  .card p{margin:0 0 14px;font-size:14px;color:var(--ink);line-height:1.45}
+  .card .btn-teal{
+    background:var(--teal);color:#fff;font-weight:900;font-size:13px;
+    padding:14px;border-radius:4px;text-align:center;text-transform:uppercase;letter-spacing:.5px;
+  }
+  /* Insurance variant: title above */
+  .card.featured .head{padding-bottom:8px}
+  .card.featured h3{font-size:22px;margin-top:0}
+
+  /* ===== Footer ===== */
+  .footer{background:var(--footer);color:#fff;margin-top:48px}
+  .footer-inner{
+    max-width:1280px;margin:0 auto;padding:42px 32px;
+    display:grid;grid-template-columns:280px 1fr 1fr 1fr 240px;gap:36px;align-items:start;
+  }
+  .footer .logo .mark{color:#fff}
+  .footer .logo .mark .dot{color:#fff}
+  .footer .logo .tag{color:#fff;opacity:.85}
+  .footer .reg{font-size:11px;opacity:.85;margin-top:14px;line-height:1.5}
+  .col h4{
+    margin:0 0 16px;font-size:13px;letter-spacing:1px;
+    text-transform:uppercase;font-weight:800;
+  }
+  .col ul{list-style:none;padding:0;margin:0;border-left:1px solid rgba(255,255,255,.25)}
+  .col ul li a{
+    display:block;padding:6px 14px;font-size:14px;color:#fff;opacity:.95;
+  }
+  .social{display:flex;gap:10px;margin-bottom:18px}
+  .social a{
+    width:30px;height:30px;border-radius:4px;background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;
+  }
+  .accred{display:flex;gap:10px;align-items:center}
+  .accred .b{
+    background:#fff;color:#444;font-weight:900;font-size:11px;
+    padding:8px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;
+  }
+  .accred .b small{font-weight:600;display:block;font-size:8px;color:#777}
+
+  @media (max-width:1080px){
+    .footer-inner{grid-template-columns:1fr 1fr 1fr;gap:24px}
+    .footer .logo-col{grid-column:1/-1}
+    .accred-col{grid-column:1/-1}
+    .promo-3{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:780px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-image{min-height:340px}
+    .hero-text{padding:48px 28px}
+    .hero-text h1{font-size:40px}
+    .topbar-inner{flex-wrap:wrap;gap:16px}
+    .search{order:3;flex-basis:100%;max-width:none}
+    .nav-inner{overflow-x:auto;justify-content:flex-start;gap:18px}
+    .donate-strip-inner{grid-template-columns:1fr}
+    .donate-msg h2{font-size:24px}
+    .promo-2,.promo-3{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== Top utility bar ===== -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="#" class="logo" aria-label="Savez za sitne životinje">
+        <span class="mark">sžs<span class="dot">.</span></span>
+        <span class="tag">DOBROTVORNI SAVEZ ZA SITNE LJUBIMCE</span>
+      </a>
+
+      <form class="search" role="search" onsubmit="event.preventDefault()">
+        <input type="search" placeholder="Šta tražite?">
+        <button aria-label="Pretraga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="utils">
+        <a href="#" class="util help"><span class="ic">+</span>Pomoć</a>
+        <a href="#" class="util find"><span class="ic">◉</span>Pronađi nas</a>
+        <a href="#" class="util my"><span class="ic">◐</span>Moj nalog</a>
+        <a href="#" class="donate-btn">
+          <svg viewBox="0 0 24 24" fill="#fff" width="16" height="16">
+            <path d="M12 21s-7-4.35-9.5-8.5C.7 9 2.5 5 6.2 5c2 0 3.4 1 3.8 2 .4-1 1.8-2 3.8-2 3.7 0 5.5 4 3.7 7.5C19 16.65 12 21 12 21z"/>
+          </svg>
+          Doniraj
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Main navigation ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="active">Saveti i nega</a>
+      <a href="#">Doniraj</a>
+      <a href="#">Šta radimo</a>
+      <a href="#">Uključi se</a>
+      <a href="#">Prodavnica</a>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>Vodič kroz<br>sitne ljubimce</h1>
+        <p>
+          2 od 3 vlasnika ne uspevaju da pokriju troškove neočekivanog
+          tretmana svog ljubimca. Naš godišnji izveštaj otkriva pritiske
+          i teške izbore sa kojima se susreću porodice koje brinu o
+          zečevima, hrčcima, zamorcima i drugim sitnim životinjama.
+        </p>
+        <a href="#" class="cta">Pročitaj izveštaj</a>
+        <a href="#" class="hero-link"><em>Treba vam pomoć? Pogledajte kako da je dobijete.</em></a>
+      </div>
+
+      <div class="hero-image" aria-hidden="true">
+        <div class="building"></div>
+        <div class="rabbit">
+          <svg viewBox="0 0 220 240" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="78" cy="38" rx="14" ry="38" fill="#3D332E"/>
+            <ellipse cx="118" cy="34" rx="14" ry="42" fill="#3D332E"/>
+            <ellipse cx="78" cy="42" rx="6" ry="28" fill="#7A5C50"/>
+            <ellipse cx="118" cy="38" rx="6" ry="32" fill="#7A5C50"/>
+            <ellipse cx="100" cy="100" rx="55" ry="50" fill="#4A3A33"/>
+            <ellipse cx="100" cy="118" rx="22" ry="18" fill="#6E5448"/>
+            <circle cx="118" cy="92" r="6" fill="#0E0A08"/>
+            <circle cx="120" cy="90" r="2" fill="#fff"/>
+            <ellipse cx="100" cy="112" rx="4" ry="3" fill="#1A0F0B"/>
+            <ellipse cx="105" cy="180" rx="70" ry="50" fill="#3D332E"/>
+            <ellipse cx="60" cy="218" rx="22" ry="10" fill="#2D2622"/>
+            <ellipse cx="150" cy="218" rx="22" ry="10" fill="#2D2622"/>
+          </svg>
+        </div>
+        <div class="cone"></div>
+        <div class="badge">s<span class="pink">ž</span>s</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Donate strip ===== -->
+  <section class="donate-strip">
+    <div class="donate-bg" aria-hidden="true"></div>
+    <div class="donate-strip-inner">
+      <div class="donate-card">
+        <h3>Doniraj SŽS</h3>
+        <div class="toggle" role="tablist">
+          <button class="active" role="tab">Mesečno</button>
+          <button role="tab">Jednokratno</button>
+        </div>
+        <p class="lbl">Koliko želite da donirate?</p>
+        <div class="amounts">
+          <button>2.500</button>
+          <button class="alt">1.500</button>
+          <button class="alt">1.000</button>
+          <button class="alt">500</button>
+        </div>
+        <div class="info-row">
+          <span class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M12 21s-7-4.35-9.5-8.5C.7 9 2.5 5 6.2 5c2 0 3.4 1 3.8 2 .4-1 1.8-2 3.8-2 3.7 0 5.5 4 3.7 7.5C19 16.65 12 21 12 21z"/>
+              <path d="M5 14c1.5 1 3 1 5 0M14 14c2 1 3.5 1 5 0"/>
+            </svg>
+          </span>
+          2.500 RSD mesečno može da kupi kutiju hirurških rukavica za hitnu intervenciju
+        </div>
+        <div class="custom-amount">
+          <span style="color:var(--muted);flex:1">Ili unesite iznos</span>
+          <span class="field">
+            <span style="color:var(--muted)">RSD</span>
+            <input value="2500">
+          </span>
+        </div>
+        <button class="donate-submit">Doniraj SŽS-u</button>
+      </div>
+      <div class="donate-msg">
+        <h2>2.500 RSD mesečno može da kupi kutiju hirurških rukavica za hitnu intervenciju</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Two-column promo ===== -->
+  <section class="section">
+    <div class="promo-2">
+      <div class="promo teal">
+        <div>
+          <h3>Pomoć kada je<br>najpotrebnija</h3>
+          <p>SŽS pruža besplatnu i nisko-troškovnu veterinarsku negu sitnim ljubimcima u potrebi. Saznajte koja je pomoć dostupna.</p>
+        </div>
+        <a href="#" class="btn">Naše usluge</a>
+      </div>
+      <div class="promo image">
+        <h3>Saveti za negu u proleće</h3>
+        <a href="#" class="btn">Saznaj više</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Three-column promo ===== -->
+  <section class="section">
+    <div class="promo-3">
+      <div class="card">
+        <div class="img dog-vet"></div>
+        <h3>Osvoji uz SŽS</h3>
+        <p>Učestvuj u nedeljnoj lutriji SŽS-a. Možeš osvojiti do 100.000 RSD, a istovremeno pomažeš da lečimo više sitnih ljubimaca.</p>
+        <a href="#" class="btn-teal">Učestvuj sad</a>
+      </div>
+      <div class="card">
+        <div class="img store"></div>
+        <h3>SŽS prodavnica</h3>
+        <p>Razvijena od strane naših veterinara, linija proizvoda SŽS Vet Care podržava zdravlje i blagostanje vaših ljubimaca jednostavnim i efikasnim proizvodima.</p>
+        <a href="#" class="btn-teal">Pogledaj asortiman</a>
+      </div>
+      <div class="card featured">
+        <div class="head">
+          <h3>SŽS osiguranje za ljubimce</h3>
+          <p>Zaštitite svoje finansije ako se desi najgore. Uz SŽS osiguranje pomažete nam da lečimo još više bolesnih i povređenih ljubimaca.</p>
+        </div>
+        <div class="img dog-grass"></div>
+        <a href="#" class="btn-teal" style="margin-top:14px">Saznaj više</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="logo-col">
+        <a href="#" class="logo">
+          <span class="mark">sžs<span class="dot">.</span></span>
+          <span class="tag">DOBROTVORNI SAVEZ ZA SITNE LJUBIMCE</span>
+        </a>
+        <p class="reg">© Savez za sitne životinje.<br>Registrovana humanitarna organizacija br. 208217 i SC037585.</p>
+      </div>
+      <div class="col">
+        <h4>Brzi linkovi</h4>
+        <ul>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Karijera</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Šta radimo</h4>
+        <ul>
+          <li><a href="#">Veterinarska nega</a></li>
+          <li><a href="#">Edukacija</a></li>
+          <li><a href="#">Istraživanja</a></li>
+          <li><a href="#">Volontiranje</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Pravno</h4>
+        <ul>
+          <li><a href="#">Uslovi korišćenja</a></li>
+          <li><a href="#">Politika privatnosti</a></li>
+          <li><a href="#">Kolačići</a></li>
+        </ul>
+      </div>
+      <div class="accred-col">
+        <div class="social" aria-label="Pratite nas">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="X">𝕏</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="YouTube">▶</a>
+        </div>
+        <div class="accred">
+          <span class="b">DMA<small>akreditovani</small></span>
+          <span class="b">FR<small>regulator donacija</small></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

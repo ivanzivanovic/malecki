@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sitnezivotinje.com — Mockup (Varijanta B, EU profesionalna)</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:           #F7F5F0;
+      --bg-alt:       #EAE6DD;
+      --surface:      #FFFFFF;
+      --border:       #D9D3C5;
+      --border-soft:  #E8E3D5;
+
+      --ink:          #1F2937;
+      --ink-muted:    #6B7280;
+      --ink-soft:     #9CA3AF;
+
+      --brand:        #3B5C7A;
+      --brand-hover:  #2C4660;
+      --brand-soft:   #E5ECF2;
+
+      --accent:       #A8743D;
+      --accent-soft:  #D4A574;
+      --accent-bg:    #F5EDE0;
+
+      --success:      #4A7C59;
+      --warning:      #D4A574;
+      --error:        #A0392B;
+
+      --shadow-sm:    0 1px 2px rgba(31, 41, 55, 0.04), 0 1px 3px rgba(31, 41, 55, 0.06);
+      --shadow-md:    0 4px 12px rgba(31, 41, 55, 0.06), 0 2px 4px rgba(31, 41, 55, 0.04);
+      --shadow-lg:    0 12px 28px rgba(31, 41, 55, 0.10), 0 4px 10px rgba(31, 41, 55, 0.06);
+
+      --radius-sm:    4px;
+      --radius:       6px;
+      --radius-md:    8px;
+      --radius-lg:    12px;
+
+      --max:          1320px;
+      --gutter:       clamp(20px, 4vw, 56px);
+
+      --t:            200ms ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'cv11', 'ss01';
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, svg { display: block; max-width: 100%; }
+
+    .mono {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-feature-settings: 'tnum';
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* ========= HEADER ========= */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .header-inner {
+      display: flex; align-items: center; gap: 40px;
+      padding: 16px 0;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--brand);
+      border-radius: var(--radius-sm);
+      display: grid; place-items: center;
+      color: white; font-size: 14px; font-weight: 800;
+    }
+    .logo-text { color: var(--ink); }
+    .logo-text span { color: var(--brand); }
+
+    .header-nav {
+      display: flex; gap: 4px;
+      flex: 1;
+    }
+    .header-nav a {
+      font-weight: 600; font-size: 14px;
+      padding: 8px 14px;
+      border-radius: var(--radius);
+      color: var(--ink-muted);
+      transition: all var(--t);
+    }
+    .header-nav a:hover { background: var(--bg); color: var(--ink); }
+    .header-nav a.active { color: var(--brand); background: var(--brand-soft); }
+
+    .header-actions {
+      display: flex; gap: 8px; align-items: center;
+    }
+
+    .icon-btn {
+      width: 38px; height: 38px;
+      display: grid; place-items: center;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      cursor: pointer;
+      color: var(--ink-muted);
+      transition: all var(--t);
+    }
+    .icon-btn:hover { color: var(--brand); border-color: var(--brand); }
+
+    .lang-switch {
+      display: flex; gap: 2px;
+      background: var(--bg);
+      padding: 3px; border-radius: var(--radius);
+      font-size: 12px; font-weight: 600;
+    }
+    .lang-switch button {
+      padding: 5px 10px; border: 0; background: transparent;
+      color: var(--ink-muted); cursor: pointer;
+      border-radius: var(--radius-sm);
+      font-family: inherit; font-weight: inherit;
+      transition: all var(--t);
+    }
+    .lang-switch button.active {
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 900px) {
+      .header-nav { display: none; }
+    }
+
+    /* ========= DUGMAD ========= */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      font-family: inherit;
+      font-weight: 600; font-size: 14px;
+      border: 0; cursor: pointer;
+      border-radius: var(--radius);
+      transition: all var(--t);
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--brand);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-primary:hover {
+      background: var(--brand-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--brand);
+    }
+    .btn-ghost:hover { background: var(--brand-soft); }
+
+    /* ========= BADGE ========= */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.02em;
+      border-radius: 999px;
+      background: var(--bg-alt);
+      color: var(--ink);
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; }
+    .badge-blue { background: var(--brand-soft); color: var(--brand); }
+    .badge-copper { background: var(--accent-bg); color: var(--accent); }
+    .badge-success { background: #E6F0EA; color: var(--success); }
+
+    /* ========= HERO ========= */
+    .hero {
+      padding: 56px 0 80px;
+    }
+
+    .hero-badges {
+      display: flex; gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 64px; }
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5.5vw, 64px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+    .hero h1 .accent { color: var(--brand); }
+
+    .hero p.lead {
+      font-size: 18px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 52ch;
+    }
+
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 24px 0;
+      margin-bottom: 32px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-stats .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--brand);
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+    .hero-stats .stat-label {
+      font-size: 12px;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .hero-cta {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    /* Hero card — featured event preview */
+    .hero-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-card-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #3B5C7A 0%, #1F2937 100%);
+      position: relative;
+    }
+    .hero-card-img::after {
+      content: 'foto';
+      position: absolute; bottom: 12px; right: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .hero-card-overlay {
+      position: absolute;
+      top: 16px; left: 16px;
+      display: flex; gap: 6px;
+    }
+    .overlay-tag {
+      background: rgba(255,255,255,0.96);
+      color: var(--ink);
+      padding: 5px 10px;
+      border-radius: var(--radius);
+      font-size: 11px; font-weight: 600;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card-body { padding: 24px; }
+    .hero-card-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    .hero-card-body h3 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .hero-card-meta {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 13px;
+    }
+    .hero-card-meta dt {
+      font-size: 11px; color: var(--ink-muted);
+      margin-bottom: 4px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .hero-card-meta dd { font-weight: 600; color: var(--ink); }
+
+    .hero-card-countdown {
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+      display: flex; justify-content: space-around; gap: 12px;
+    }
+    .countdown-unit { text-align: center; }
+    .countdown-unit .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--brand);
+      line-height: 1;
+    }
+    .countdown-unit .label {
+      font-size: 10px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ========= SECTION HEADER ========= */
+    .section { padding: 80px 0; }
+
+    .section-head {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .section-head .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .section-head h2 {
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .section-head .desc {
+      color: var(--ink-muted);
+      font-size: 15px;
+      margin-top: 8px;
+      max-width: 50ch;
+    }
+
+    /* ========= KALENDAR — filter chips + cards ========= */
+    .filter-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-size: 13px; font-weight: 500;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all var(--t);
+    }
+    .chip:hover { background: var(--bg-alt); color: var(--ink); }
+    .chip.active {
+      background: var(--brand-soft);
+      color: var(--brand);
+      border-color: var(--brand);
+      font-weight: 600;
+    }
+    .chip-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      opacity: 0.7;
+    }
+    .filter-divider { width: 1px; background: var(--border); margin: 4px 8px; }
+    .filter-bar select {
+      padding: 8px 14px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      font-family: inherit; font-size: 13px; font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .event-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all var(--t);
+      cursor: pointer;
+      border: 1px solid var(--border-soft);
+    }
+    .event-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .event-card-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #D4A574 0%, #A8743D 100%);
+      position: relative;
+    }
+    .event-card-img.zivinarstvo { background: linear-gradient(135deg, #D4A574 0%, #A8743D 100%); }
+    .event-card-img.golubarstvo { background: linear-gradient(135deg, #6B8DA8 0%, #3B5C7A 100%); }
+    .event-card-img.kunicarstvo { background: linear-gradient(135deg, #B89B7A 0%, #8B6F47 100%); }
+    .event-card-img.ptice       { background: linear-gradient(135deg, #8FB39C 0%, #5C8A6B 100%); }
+
+    .event-date-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--surface);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      min-width: 56px;
+    }
+    .event-date-badge .day {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .event-date-badge .month {
+      font-size: 10px;
+      color: var(--ink-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    .event-type-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      padding: 5px 10px;
+      border-radius: var(--radius);
+      font-size: 11px; font-weight: 600;
+      color: var(--ink);
+    }
+
+    .event-card-body { padding: 18px; }
+    .event-card-body h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+    .event-card-meta {
+      display: flex; flex-direction: column; gap: 6px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+    .event-card-meta div {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .event-card-meta svg { flex-shrink: 0; }
+
+    .event-card-footer {
+      padding: 12px 18px;
+      border-top: 1px solid var(--border-soft);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px;
+    }
+    .event-card-footer .org {
+      color: var(--ink-muted); font-weight: 500;
+    }
+    .event-card-footer .arrow {
+      color: var(--brand); font-weight: 600;
+      transition: transform var(--t);
+    }
+    .event-card:hover .arrow { transform: translateX(3px); }
+
+    /* ========= STATS BANNER ========= */
+    .stats-banner {
+      background: linear-gradient(135deg, var(--brand) 0%, var(--brand-hover) 100%);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .stats-banner .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 48px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      color: var(--accent-soft);
+    }
+    .stats-banner .stat-label {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .stats-banner .stat-desc {
+      font-size: 12px;
+      opacity: 0.65;
+      margin-top: 4px;
+    }
+
+    /* ========= KATEGORIJE ========= */
+    .cats-section { background: var(--bg-alt); }
+
+    .cats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .cat-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      transition: all var(--t);
+      cursor: pointer;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--brand);
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--cat-color, var(--brand));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--t);
+    }
+    .cat-card:hover::before { transform: scaleX(1); }
+
+    .cat-icon {
+      width: 48px; height: 48px;
+      background: var(--cat-soft, var(--brand-soft));
+      color: var(--cat-color, var(--brand));
+      border-radius: var(--radius);
+      display: grid; place-items: center;
+      margin-bottom: 20px;
+    }
+    .cat-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .cat-card p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .cat-card .cat-stats {
+      display: flex; gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 12px;
+    }
+    .cat-card .cat-stats span {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .cat-card .cat-stats .lbl {
+      color: var(--ink-muted);
+      font-family: inherit;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    /* ========= BLOG ========= */
+    .articles-grid {
+      display: grid; grid-template-columns: 1fr; gap: 24px;
+    }
+    @media (min-width: 768px) {
+      .articles-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .article-card {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--t);
+      cursor: pointer;
+    }
+    .article-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .article-card-img {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #6B8DA8 0%, #3B5C7A 100%);
+    }
+    .article-card-img.kunic { background: linear-gradient(135deg, #B89B7A 0%, #8B6F47 100%); }
+    .article-card-img.kokos { background: linear-gradient(135deg, #D4A574 0%, #A8743D 100%); }
+
+    .article-card-body { padding: 20px; }
+
+    .article-card-tags {
+      display: flex; gap: 6px;
+      margin-bottom: 12px;
+    }
+    .article-card-body h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .article-card-body p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .article-card-meta {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    .article-card-meta .author {
+      font-weight: 600; color: var(--ink);
+    }
+    .article-card-meta .read-time {
+      font-family: 'JetBrains Mono', monospace;
+      margin-left: auto;
+    }
+
+    /* ========= SAVEZI ========= */
+    .alliances-section { background: var(--bg-alt); }
+
+    .alliances-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .alliance-tile {
+      background: var(--surface);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex; align-items: center; gap: 14px;
+      border: 1px solid var(--border-soft);
+      transition: all var(--t);
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+    .alliance-tile:hover {
+      border-color: var(--brand);
+      box-shadow: var(--shadow-md);
+    }
+    .alliance-flag-wrap {
+      width: 44px; height: 44px;
+      background: var(--bg);
+      border-radius: var(--radius);
+      display: grid; place-items: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .alliance-info h4 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 2px;
+    }
+    .alliance-info p {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    /* ========= NEWSLETTER ========= */
+    .newsletter-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .newsletter-card { grid-template-columns: 1.2fr 1fr; }
+    }
+    .newsletter-card .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .newsletter-card h3 {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .newsletter-card p {
+      color: var(--ink-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    .newsletter-form {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .newsletter-form input {
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      transition: all var(--t);
+    }
+    .newsletter-form input:focus {
+      outline: none;
+      border-color: var(--brand);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px var(--brand-soft);
+    }
+    .newsletter-form button { width: 100%; justify-content: center; }
+    .newsletter-form .small {
+      font-size: 11px;
+      color: var(--ink-soft);
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    /* ========= FOOTER ========= */
+    footer {
+      background: #1F2937;
+      color: #D1D5DB;
+      padding: 64px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    @media (min-width: 768px) {
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr 1fr; }
+    }
+
+    .footer-brand .logo-mark { background: var(--accent); }
+    .footer-brand .logo-text { color: white; }
+    .footer-brand .logo-text span { color: var(--accent-soft); }
+    .footer-brand p {
+      margin-top: 16px;
+      max-width: 36ch;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #9CA3AF;
+    }
+
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: white;
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      font-size: 14px;
+      color: #9CA3AF;
+      transition: color var(--t);
+    }
+    .footer-col a:hover { color: var(--accent-soft); }
+
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid #374151;
+      display: flex; justify-content: space-between; flex-wrap: wrap;
+      gap: 16px; align-items: center;
+      font-size: 13px;
+      color: #6B7280;
+    }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-socials a {
+      width: 36px; height: 36px;
+      background: #374151;
+      border-radius: var(--radius);
+      display: grid; place-items: center;
+      color: #D1D5DB;
+      transition: all var(--t);
+    }
+    .footer-socials a:hover {
+      background: var(--accent);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============== HEADER ============== -->
+<header>
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="#" class="logo">
+        <span class="logo-mark">SŽ</span>
+        <span class="logo-text">sitnezivotinje<span>.com</span></span>
+      </a>
+      <nav class="header-nav">
+        <a href="#" class="active">Kalendar</a>
+        <a href="#">Kategorije</a>
+        <a href="#">Rase</a>
+        <a href="#">Savezi</a>
+        <a href="#">Blog</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Pretraga">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <div class="lang-switch">
+          <button class="active">SR</button>
+          <button>ЋИР</button>
+          <button>EN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+
+      <div>
+        <div class="hero-badges">
+          <span class="badge badge-blue"><span class="badge-dot" style="background:var(--brand)"></span> Sezona 2026 aktivna</span>
+          <span class="badge badge-copper">47 manifestacija</span>
+        </div>
+
+        <h1>
+          Kalendar manifestacija<br/>
+          <span class="accent">sitnih životinja</span><br/>
+          u Srbiji i regionu.
+        </h1>
+
+        <p class="lead">
+          Centralizovan pregled izložbi, berzi i specijalki u Srbiji,
+          BiH, Hrvatskoj, Sloveniji, Mađarskoj, Crnoj Gori i Makedoniji —
+          uz registar autohtonih rasa i najveće evropske manifestacije.
+        </p>
+
+        <div class="hero-stats">
+          <div>
+            <div class="stat-num">47</div>
+            <div class="stat-label">Najavljene manifestacije</div>
+          </div>
+          <div>
+            <div class="stat-num">8</div>
+            <div class="stat-label">Zemalja u kalendaru</div>
+          </div>
+          <div>
+            <div class="stat-num">120+</div>
+            <div class="stat-label">Rase u registru</div>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#" class="btn btn-primary">
+            Otvori kalendar
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="btn btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            Newsletter
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="hero-card-img" style="background-image:url('../images/kunic%20(1).jpg');background-size:cover;background-position:center;">
+          <div class="hero-card-overlay">
+            <span class="overlay-tag">FEATURED</span>
+            <span class="overlay-tag" style="background:var(--brand);color:white">Međunarodna</span>
+          </div>
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-eyebrow">SLEDEĆA VELIKA · 25.10.2026</div>
+          <h3>Međunarodna izložba sitnih životinja Vršac 2026</h3>
+          <dl class="hero-card-meta">
+            <div>
+              <dt>Lokacija</dt>
+              <dd>Vršac, Srbija</dd>
+            </div>
+            <div>
+              <dt>Trajanje</dt>
+              <dd>3 dana</dd>
+            </div>
+            <div>
+              <dt>Eksponati</dt>
+              <dd class="mono">~1.700</dd>
+            </div>
+            <div>
+              <dt>Izlagači</dt>
+              <dd class="mono">200+</dd>
+            </div>
+          </dl>
+          <div class="hero-card-countdown">
+            <div class="countdown-unit">
+              <div class="num">04</div>
+              <div class="label">Dana</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="num">18</div>
+              <div class="label">Sati</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="num">22</div>
+              <div class="label">Min</div>
+            </div>
+            <div class="countdown-unit">
+              <div class="num">47</div>
+              <div class="label">Sek</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== KALENDAR PREVIEW + FILTERI ============== -->
+<section class="section" style="padding-top: 0;">
+  <div class="wrap">
+
+    <div class="section-head">
+      <div>
+        <span class="label">// 01 — KALENDAR</span>
+        <h2>Naredne manifestacije</h2>
+        <p class="desc">Filtriraj po zemlji, kategoriji ili tipu događaja. Dodaj direktno u svoj kalendar.</p>
+      </div>
+      <a href="#" class="btn btn-ghost">
+        Sve manifestacije
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="filter-bar">
+      <button class="chip active">Sve <span class="chip-count">47</span></button>
+      <button class="chip">🇷🇸 Srbija <span class="chip-count">18</span></button>
+      <button class="chip">🇭🇷 Hrvatska <span class="chip-count">9</span></button>
+      <button class="chip">🇧🇦 BiH <span class="chip-count">7</span></button>
+      <button class="chip">🇸🇮 Slovenija <span class="chip-count">5</span></button>
+      <button class="chip">🇭🇺 Mađarska <span class="chip-count">4</span></button>
+      <div class="filter-divider"></div>
+      <select>
+        <option>Sve kategorije</option>
+        <option>Golubarstvo</option>
+        <option>Živinarstvo</option>
+        <option>Kunićarstvo</option>
+        <option>Ptice</option>
+      </select>
+      <select>
+        <option>Sve mesece</option>
+        <option>Januar 2026</option>
+        <option>Februar 2026</option>
+        <option>Mart 2026</option>
+      </select>
+      <select>
+        <option>Svi tipovi</option>
+        <option>Izložba</option>
+        <option>Berza</option>
+        <option>Specijalka</option>
+      </select>
+    </div>
+
+    <div class="events-grid">
+
+      <article class="event-card">
+        <div class="event-card-img" style="background-image:url('../images/kunic%20(2).jpg');background-size:cover;background-position:center;">
+          <div class="event-date-badge">
+            <div class="day">25</div>
+            <div class="month">NOV</div>
+          </div>
+          <span class="event-type-badge">Izložba</span>
+        </div>
+        <div class="event-card-body">
+          <h3>Tradicionalna izložba Subotica</h3>
+          <div class="event-card-meta">
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Subotica, Srbija
+            </div>
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              <span class="mono">3 dana · živinarstvo</span>
+            </div>
+          </div>
+        </div>
+        <div class="event-card-footer">
+          <span class="org">AOS Srbija</span>
+          <span class="arrow">Detalji →</span>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-card-img" style="background-image:url('../images/kunic%20(3).jpg');background-size:cover;background-position:center;">
+          <div class="event-date-badge">
+            <div class="day">14</div>
+            <div class="month">MAR</div>
+          </div>
+          <span class="event-type-badge">Berza</span>
+        </div>
+        <div class="event-card-body">
+          <h3>Prolećna berza Sombor</h3>
+          <div class="event-card-meta">
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+              Sombor, Srbija
+            </div>
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span class="mono">1 dan · golubarstvo</span>
+            </div>
+          </div>
+        </div>
+        <div class="event-card-footer">
+          <span class="org">DOSŽ Sombor 1871</span>
+          <span class="arrow">Detalji →</span>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-card-img" style="background-image:url('../images/kunic%20(4).jpg');background-size:cover;background-position:center;">
+          <div class="event-date-badge">
+            <div class="day">05</div>
+            <div class="month">DEC</div>
+          </div>
+          <span class="event-type-badge">Specijalka</span>
+        </div>
+        <div class="event-card-body">
+          <h3>Memorijalni kup „Davor Konjević"</h3>
+          <div class="event-card-meta">
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+              Gudovac, Hrvatska
+            </div>
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span class="mono">2 dana · kunićarstvo</span>
+            </div>
+          </div>
+        </div>
+        <div class="event-card-footer">
+          <span class="org">HSUGPKPZ</span>
+          <span class="arrow">Detalji →</span>
+        </div>
+      </article>
+
+      <article class="event-card">
+        <div class="event-card-img" style="background-image:url('../images/hrcak.jpg');background-size:cover;background-position:center;">
+          <div class="event-date-badge">
+            <div class="day">14</div>
+            <div class="month">FEB</div>
+          </div>
+          <span class="event-type-badge">Sajam</span>
+        </div>
+        <div class="event-card-body">
+          <h3>EgZoo Mania Budimpešta</h3>
+          <div class="event-card-meta">
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/></svg>
+              Budimpešta, Mađarska
+            </div>
+            <div>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span class="mono">2 dana · ptice, terra</span>
+            </div>
+          </div>
+        </div>
+        <div class="event-card-footer">
+          <span class="org">EgZoo</span>
+          <span class="arrow">Detalji →</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== STATS BANNER ============== -->
+<section style="padding: 0 0 80px;">
+  <div class="wrap">
+    <div class="stats-banner">
+      <div>
+        <div class="stat-num">47</div>
+        <div class="stat-label">Manifestacija u 2026</div>
+        <div class="stat-desc">Najavljene do januara</div>
+      </div>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Zemalja u regionu</div>
+        <div class="stat-desc">+ EE Evropa</div>
+      </div>
+      <div>
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Priznatih rasa</div>
+        <div class="stat-desc">U registru sajta</div>
+      </div>
+      <div>
+        <div class="stat-num">15</div>
+        <div class="stat-label">Krovnih organizacija</div>
+        <div class="stat-desc">Praćenih savezi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== KATEGORIJE ============== -->
+<section class="section cats-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="label">// 02 — KATEGORIJE</span>
+        <h2>Pet pravaca uzgoja</h2>
+        <p class="desc">Filtriraj manifestacije, istražuj rase i čitaj članke po kategoriji koja te interesuje.</p>
+      </div>
+    </div>
+
+    <div class="cats-grid">
+
+      <a href="#" class="cat-card" style="--cat-color: #3B5C7A; --cat-soft: #E5ECF2;">
+        <div class="cat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13c0-4 3-7 7-7s7 3 7 7c0 2-1 4-3 5-2 1-4 1-6 0-2-1-3-3-3-5z"/><circle cx="14" cy="10" r="1" fill="currentColor"/></svg>
+        </div>
+        <h3>Golubarstvo</h3>
+        <p>Visokoletači, prevrtači, gušani i ukrasni golubovi.</p>
+        <div class="cat-stats">
+          <div><span>12</span><span class="lbl">rasa</span></div>
+          <div><span>18</span><span class="lbl">izložbi</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="cat-card" style="--cat-color: #A8743D; --cat-soft: #F5EDE0;">
+        <div class="cat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11c0-2 2-4 4-4s4 2 4 4c0 3-2 6-5 7-2 0-4-1-5-3-1-2 2-4 2-4z"/><path d="M11 7l-1-3M14 7l1-3"/></svg>
+        </div>
+        <h3>Živinarstvo</h3>
+        <p>Rasne kokoške, patke, guske, fazani i biserke.</p>
+        <div class="cat-stats">
+          <div><span>8</span><span class="lbl">rasa</span></div>
+          <div><span>12</span><span class="lbl">izložbi</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="cat-card" style="--cat-color: #8B6F47; --cat-soft: #F0E9DD;">
+        <div class="cat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6c-1-2-1-5 1-5s2 3 2 5M14 6c1-2 1-5-1-5s-2 3-2 5"/><ellipse cx="12" cy="14" rx="6" ry="7"/></svg>
+        </div>
+        <h3>Kunićarstvo</h3>
+        <p>Od patuljastih do džinovskih rasa kunića.</p>
+        <div class="cat-stats">
+          <div><span>6</span><span class="lbl">rasa</span></div>
+          <div><span>9</span><span class="lbl">izložbi</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="cat-card" style="--cat-color: #5C8A6B; --cat-soft: #E6EFE9;">
+        <div class="cat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M16 8l4-4M20 8l-4-4"/></svg>
+        </div>
+        <h3>Ptice</h3>
+        <p>Kanarinci, papagaji i egzote.</p>
+        <div class="cat-stats">
+          <div><span>14</span><span class="lbl">rasa</span></div>
+          <div><span>6</span><span class="lbl">izložbi</span></div>
+        </div>
+      </a>
+
+      <a href="#" class="cat-card" style="--cat-color: #6B7280; --cat-soft: #EAEBED;">
+        <div class="cat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="7"/><circle cx="8" cy="9" r="2.5"/><circle cx="16" cy="9" r="2.5"/></svg>
+        </div>
+        <h3>Glodari</h3>
+        <p>Zamorčići, hrčci i ostali sitni ljubimci.</p>
+        <div class="cat-stats">
+          <div><span>5</span><span class="lbl">rasa</span></div>
+          <div><span>2</span><span class="lbl">izložbe</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== BLOG ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="label">// 03 — BLOG</span>
+        <h2>Najnoviji članci</h2>
+      </div>
+      <a href="#" class="btn btn-ghost">
+        Svi članci
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="articles-grid">
+
+      <article class="article-card">
+        <div class="article-card-img" style="background-image:url('../images/kunic%20(1).jpg');background-size:cover;background-position:center;"></div>
+        <div class="article-card-body">
+          <div class="article-card-tags">
+            <span class="badge badge-blue">Golubarstvo</span>
+          </div>
+          <h3>Kako sam za 5 godina odgojio prvog šampiona Srpskog visokoletača</h3>
+          <p>Pet godina rada, sto puta odustajanja, jedna izložba koja je sve promenila.</p>
+          <div class="article-card-meta">
+            <span class="author">Marko Petrović</span>
+            <span>·</span>
+            <span>24. jan</span>
+            <span class="read-time">12 min</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-card-img" style="background-image:url('../images/kunic%20(2).jpg');background-size:cover;background-position:center;"></div>
+        <div class="article-card-body">
+          <div class="article-card-tags">
+            <span class="badge badge-copper">Kunićarstvo</span>
+          </div>
+          <h3>Ishrana mladih kunića — šta naša literatura krije</h3>
+          <p>Pregled domaćih i evropskih izvora sa praktičnim primerima iz uzgajivačnice.</p>
+          <div class="article-card-meta">
+            <span class="author">Jelena Mitrović</span>
+            <span>·</span>
+            <span>18. jan</span>
+            <span class="read-time">7 min</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-card-img" style="background-image:url('../images/hrcak.jpg');background-size:cover;background-position:center;"></div>
+        <div class="article-card-body">
+          <div class="article-card-tags">
+            <span class="badge badge-success">Živinarstvo</span>
+          </div>
+          <h3>Bosanska džudža — autohtona pred priznavanjem na EE</h3>
+          <p>Razgovor sa Milošem Stankovićem iz Doboja o decenijskoj borbi za standardizaciju.</p>
+          <div class="article-card-meta">
+            <span class="author">Redakcija</span>
+            <span>·</span>
+            <span>10. jan</span>
+            <span class="read-time">9 min</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== SAVEZI ============== -->
+<section class="section alliances-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="label">// 04 — KROVNE ORGANIZACIJE</span>
+        <h2>Savezi regiona i Evrope</h2>
+        <p class="desc">Praćeni savezi sa kojih dolaze najavljene manifestacije.</p>
+      </div>
+      <a href="#" class="btn btn-ghost">
+        Svi savezi
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="alliances-grid">
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇷🇸</div>
+        <div class="alliance-info">
+          <h4>AOS Srbija</h4>
+          <p>Asocijacija odgajivača</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇭🇷</div>
+        <div class="alliance-info">
+          <h4>HSUGPKPZ</h4>
+          <p>Hrvatski savez</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇸🇮</div>
+        <div class="alliance-info">
+          <h4>SDGPMŽ</h4>
+          <p>Slovensko društvo</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇧🇦</div>
+        <div class="alliance-info">
+          <h4>Savez za odgoj BiH</h4>
+          <p>Federacija + RS</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇲🇪</div>
+        <div class="alliance-info">
+          <h4>Crna Gora</h4>
+          <p>Lokalna udruženja</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇲🇰</div>
+        <div class="alliance-info">
+          <h4>Makedonski vrtač</h4>
+          <p>Strumica</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇭🇺</div>
+        <div class="alliance-info">
+          <h4>MGKSZ</h4>
+          <p>Mađarski savez</p>
+        </div>
+      </a>
+      <a href="#" class="alliance-tile">
+        <div class="alliance-flag-wrap">🇪🇺</div>
+        <div class="alliance-info">
+          <h4>EE Europe</h4>
+          <p>Krovni evropski savez</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== NEWSLETTER ============== -->
+<section class="section">
+  <div class="wrap">
+    <div class="newsletter-card">
+      <div>
+        <span class="label">// NEWSLETTER · MESEČNO</span>
+        <h3>Sve manifestacije, jedan email mesečno.</h3>
+        <p>
+          Pregled svih izložbi, berzi i specijalki u narednom mesecu.
+          Bez kolačića, bez spam-a, otkazujete jednim klikom.
+        </p>
+      </div>
+      <form class="newsletter-form" onsubmit="event.preventDefault();">
+        <input type="email" placeholder="vasa.adresa@email.rs" required />
+        <button type="submit" class="btn btn-primary">
+          Prijavi se
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <p class="small">Privatnost garantovana · GDPR usklađeno</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark">SŽ</span>
+          <span class="logo-text">sitnezivotinje<span>.com</span></span>
+        </a>
+        <p>
+          Centralizovan portal manifestacija sitnih životinja u Srbiji,
+          regionu i Evropi. Otvoren za sve odgajivače.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h5>Sajt</h5>
+        <ul>
+          <li><a href="#">Kalendar</a></li>
+          <li><a href="#">Kategorije</a></li>
+          <li><a href="#">Rase</a></li>
+          <li><a href="#">Savezi</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Resursi</h5>
+        <ul>
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Predloži manifestaciju</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">RSS feed</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Pravno</h5>
+        <ul>
+          <li><a href="#">Uslovi korišćenja</a></li>
+          <li><a href="#">Politika privatnosti</a></li>
+          <li><a href="#">GDPR</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 sitnezivotinje.com · Svi materijali zaštićeni</span>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5C10.5 7 12 5.7 14.2 5.7c1 0 2.1.2 2.1.2v2.4h-1.2c-1.2 0-1.5.7-1.5 1.5V12h2.6l-.4 3h-2.2v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.2-1.6-.9-2.3c-.8-.9-1.7-.9-2.1-1C16.7 3.5 12 3.5 12 3.5s-4.7 0-8 .2c-.4 0-1.3 0-2.1 1C1.2 5.4 1 7 1 7S.7 8.9.7 10.7v1.6c0 1.9.3 3.7.3 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.8.2 7.7.2 7.7.2s4.7 0 8-.2c.4 0 1.3 0 2.1-1 .7-.7.9-2.3.9-2.3s.3-1.9.3-3.7v-1.6C23.3 8.9 23 7 23 7zM9.7 14.6V8l6.2 3.3-6.2 3.3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

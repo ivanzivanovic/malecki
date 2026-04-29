@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kunići i zečevi — Sitne životinje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #FFFFFF;
+    --bg-alt:    #F4F7FA;
+    --bg-warm:   #FBF9F6;
+    --border:    #E2E8F0;
+    --ink:       #1A2332;
+    --ink-muted: #4A5568;
+    --ink-light: #718096;
+    --brand:     #3B5C7A;
+    --brand-h:   #2C4660;
+    --brand-lt:  #EBF4FF;
+    --brand-mid: #D1E4F5;
+    --accent:    #A8743D;
+    --accent-lt: #FDF3E7;
+    --success:   #276749;
+    --success-lt:#F0FFF4;
+    --ff:        'Manrope', system-ui, sans-serif;
+    --ff-mono:   'JetBrains Mono', monospace;
+    --max:       1200px;
+    --content:   720px;
+    --pad:       clamp(1rem, 4vw, 2rem);
+    --r:         6px;
+  }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--ff); line-height: 1.7; }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  img { display: block; max-width: 100%; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+  .skip-link {
+    position: absolute; top: -48px; left: 1rem; z-index: 1000;
+    background: var(--brand); color: #fff;
+    padding: .5rem 1rem; border-radius: var(--r); font-size: .875rem; font-weight: 600;
+    transition: top .15s;
+  }
+  .skip-link:focus { top: 1rem; }
+
+  /* ════════════════════════════════════════════════════
+     HEADER
+  ════════════════════════════════════════════════════ */
+  .site-header {
+    background: var(--brand);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .header-inner {
+    max-width: var(--max); margin: 0 auto; padding: 0 var(--pad);
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px; gap: 2rem;
+  }
+
+  .site-logo {
+    font-family: var(--ff); font-weight: 800; font-size: 1.125rem;
+    color: #fff; letter-spacing: -.01em; white-space: nowrap;
+    display: flex; align-items: center; gap: .5rem;
+    text-decoration: none;
+  }
+  .site-logo:hover { text-decoration: none; }
+  .logo-sub {
+    font-size: .65rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    border-left: 1px solid rgba(255,255,255,.3); padding-left: .625rem;
+  }
+
+  .header-nav { display: flex; gap: 0; align-items: center; flex: 1; justify-content: center; }
+  .header-nav a {
+    font-size: .8125rem; font-weight: 600; color: rgba(255,255,255,.8);
+    padding: .5rem .875rem; border-radius: 4px;
+    transition: background .15s, color .15s;
+  }
+  .header-nav a:hover { background: rgba(255,255,255,.12); color: #fff; text-decoration: none; }
+  .header-nav a.active { background: rgba(255,255,255,.2); color: #fff; }
+
+  .header-right { display: flex; align-items: center; gap: .5rem; }
+  .btn-donate {
+    background: var(--accent); color: #fff;
+    font-size: .8125rem; font-weight: 700; letter-spacing: .03em;
+    padding: .45rem 1.125rem; border-radius: var(--r);
+    transition: background .15s;
+    text-decoration: none;
+  }
+  .btn-donate:hover { background: #8F5F2E; text-decoration: none; }
+  .lang-switch { display: flex; gap: 2px; }
+  .lang-switch a {
+    font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+    color: rgba(255,255,255,.55); padding: .25rem .45rem; border-radius: 3px;
+    transition: background .15s, color .15s;
+  }
+  .lang-switch a:hover { color: #fff; background: rgba(255,255,255,.12); text-decoration: none; }
+  .lang-switch a.active { color: #fff; background: rgba(255,255,255,.2); }
+
+  /* ════════════════════════════════════════════════════
+     BREADCRUMB
+  ════════════════════════════════════════════════════ */
+  .breadcrumb-bar {
+    background: var(--bg-alt); border-bottom: 1px solid var(--border);
+    padding: .625rem var(--pad);
+  }
+  .breadcrumb {
+    max-width: var(--max); margin: 0 auto;
+    display: flex; align-items: center; gap: .4rem; flex-wrap: wrap;
+    font-size: .8rem; color: var(--ink-light);
+    list-style: none;
+  }
+  .breadcrumb li { display: flex; align-items: center; gap: .4rem; }
+  .breadcrumb a { color: var(--ink-light); }
+  .breadcrumb a:hover { color: var(--brand); }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/'; color: var(--border); font-size: .75rem;
+  }
+  .breadcrumb li:last-child { color: var(--ink-muted); font-weight: 500; }
+
+  /* ════════════════════════════════════════════════════
+     PAGE LAYOUT
+  ════════════════════════════════════════════════════ */
+  .page-wrap {
+    max-width: var(--max); margin: 0 auto; padding: 2.5rem var(--pad) 4rem;
+    display: grid; grid-template-columns: 1fr 300px;
+    gap: 3rem; align-items: start;
+  }
+
+  /* ════════════════════════════════════════════════════
+     MAIN CONTENT
+  ════════════════════════════════════════════════════ */
+  .page-header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
+
+  .page-eyebrow {
+    font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .625rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+  .page-eyebrow::before {
+    content: ''; width: 20px; height: 2px; background: var(--accent); flex-shrink: 0;
+  }
+
+  .page-title {
+    font-size: clamp(1.875rem, 4vw, 2.75rem); font-weight: 800;
+    letter-spacing: -.025em; line-height: 1.1; color: var(--ink);
+    margin-bottom: .75rem;
+  }
+  .page-subtitle {
+    font-size: 1.0625rem; color: var(--ink-muted); line-height: 1.65;
+    max-width: 58ch;
+  }
+
+  /* Intro text */
+  .content-body > p {
+    font-size: 1rem; color: var(--ink-muted); line-height: 1.8;
+    margin-bottom: 1.25rem; max-width: 68ch;
+  }
+  .content-body > p strong { color: var(--ink); font-weight: 600; }
+
+  /* Section headers inside content */
+  .content-body h2 {
+    font-size: 1.375rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.25;
+    color: var(--ink); margin: 2.5rem 0 1.125rem;
+    padding-bottom: .625rem; border-bottom: 2px solid var(--brand);
+    display: inline-block;
+  }
+  .content-body h3 {
+    font-size: 1.0625rem; font-weight: 700; color: var(--ink);
+    margin: 1.75rem 0 .5rem;
+  }
+
+  /* ════════════════════════════════════════════════════
+     BREED CARDS GRID
+  ════════════════════════════════════════════════════ */
+  .breed-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1rem; margin-bottom: 1rem;
+  }
+
+  .breed-card {
+    border: 1.5px solid var(--border); border-radius: var(--r);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: border-color .15s, box-shadow .15s;
+    text-decoration: none;
+  }
+  .breed-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 2px 12px rgba(59,92,122,.12);
+    text-decoration: none;
+  }
+
+  .breed-card-image {
+    aspect-ratio: 4/3; overflow: hidden;
+    background: var(--bg-alt);
+    position: relative;
+  }
+  .breed-card-image img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .25s;
+  }
+  .breed-card:hover .breed-card-image img { transform: scale(1.04); }
+
+  .breed-card-body { padding: .875rem 1rem 1rem; flex: 1; display: flex; flex-direction: column; }
+  .breed-card-name {
+    font-size: .9375rem; font-weight: 700; color: var(--ink);
+    margin-bottom: .2rem; line-height: 1.3;
+  }
+  .breed-card-latin {
+    font-family: var(--ff-mono); font-size: .7rem; color: var(--ink-light);
+    margin-bottom: .5rem; font-style: italic;
+  }
+  .breed-card-desc {
+    font-size: .8125rem; color: var(--ink-muted); line-height: 1.55;
+    flex: 1; margin-bottom: .75rem;
+  }
+  .breed-card-link {
+    font-size: .8rem; font-weight: 700; color: var(--brand);
+    display: flex; align-items: center; gap: .3rem;
+    margin-top: auto;
+    transition: gap .15s;
+  }
+  .breed-card:hover .breed-card-link { gap: .5rem; }
+
+  /* ════════════════════════════════════════════════════
+     CONSIDERATIONS LIST
+  ════════════════════════════════════════════════════ */
+  .considerations { list-style: none; display: flex; flex-direction: column; gap: 0; }
+
+  .consideration-item {
+    display: grid; grid-template-columns: 3rem 1fr;
+    gap: 0 1.25rem; align-items: start;
+    padding: 1.375rem 0; border-bottom: 1px solid var(--border);
+  }
+  .consideration-item:first-child { border-top: 1px solid var(--border); }
+
+  .consideration-num {
+    font-family: var(--ff-mono); font-size: 1.5rem; font-weight: 500;
+    color: var(--brand-mid); line-height: 1.4;
+    text-align: right; padding-top: .1rem;
+  }
+
+  .consideration-body { }
+  .consideration-title {
+    font-size: 1rem; font-weight: 700; color: var(--ink);
+    margin-bottom: .375rem; line-height: 1.3;
+  }
+  .consideration-text {
+    font-size: .9rem; color: var(--ink-muted); line-height: 1.7;
+  }
+  .consideration-text strong { color: var(--ink); font-weight: 600; }
+
+  /* ════════════════════════════════════════════════════
+     CALLOUT / TIP BOXES
+  ════════════════════════════════════════════════════ */
+  .callout {
+    border-left: 4px solid var(--brand);
+    background: var(--brand-lt);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--r) var(--r) 0;
+    margin: 1.5rem 0;
+  }
+  .callout-label {
+    font-size: .7rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--brand); margin-bottom: .4rem;
+  }
+  .callout p {
+    font-size: .9rem; color: var(--ink-muted); line-height: 1.65;
+    margin: 0 !important;
+  }
+  .callout p strong { color: var(--ink); }
+
+  .callout.warning {
+    border-left-color: var(--accent); background: var(--accent-lt);
+  }
+  .callout.warning .callout-label { color: var(--accent); }
+
+  .callout.success {
+    border-left-color: var(--success); background: var(--success-lt);
+  }
+  .callout.success .callout-label { color: var(--success); }
+
+  /* ════════════════════════════════════════════════════
+     CHECKLIST BOX
+  ════════════════════════════════════════════════════ */
+  .checklist-box {
+    border: 1.5px solid var(--border); border-radius: var(--r);
+    padding: 1.25rem 1.5rem; margin: 1.25rem 0;
+  }
+  .checklist-box h3 {
+    font-size: .875rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: .875rem; border-bottom: none;
+    margin-top: 0;
+  }
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  .checklist li {
+    font-size: .9rem; color: var(--ink-muted); line-height: 1.55;
+    display: flex; gap: .6rem; align-items: flex-start;
+  }
+  .checklist li::before {
+    content: '';
+    width: 18px; height: 18px; flex-shrink: 0; margin-top: .1rem;
+    border-radius: 50%; background: var(--success);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: center;
+    background-size: 10px;
+  }
+  .checklist li strong { color: var(--ink); font-weight: 600; }
+
+  /* ════════════════════════════════════════════════════
+     EVENTS IN CONTENT
+  ════════════════════════════════════════════════════ */
+  .event-list-content { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1rem; }
+
+  .event-row-content {
+    display: flex; align-items: center; gap: 1rem;
+    padding: .875rem 1rem; border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    transition: border-color .15s, background .15s;
+    text-decoration: none; color: inherit;
+  }
+  .event-row-content:hover {
+    border-color: var(--brand); background: var(--brand-lt);
+    text-decoration: none;
+  }
+
+  .erc-date {
+    background: var(--brand); color: #fff;
+    border-radius: 4px; padding: .4rem .6rem;
+    text-align: center; flex-shrink: 0; min-width: 48px;
+  }
+  .erc-date .day { font-family: var(--ff-mono); font-size: 1.125rem; font-weight: 500; line-height: 1; display: block; }
+  .erc-date .mon { font-size: .6rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; display: block; margin-top: 2px; opacity: .8; }
+
+  .erc-info { flex: 1; min-width: 0; }
+  .erc-title { font-size: .9375rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: .2rem; }
+  .event-row-content:hover .erc-title { color: var(--brand); }
+  .erc-meta { font-size: .8rem; color: var(--ink-light); display: flex; gap: .75rem; flex-wrap: wrap; }
+
+  .erc-arrow { color: var(--brand); flex-shrink: 0; }
+
+  /* ════════════════════════════════════════════════════
+     SIDEBAR
+  ════════════════════════════════════════════════════ */
+  .sidebar { display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 80px; }
+
+  .sidebar-box {
+    border: 1.5px solid var(--border); border-radius: var(--r); overflow: hidden;
+  }
+
+  .sidebar-box-header {
+    padding: .75rem 1rem;
+    font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-box-header.blue { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .sidebar-box-header.amber { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .sidebar-box-header.green { background: var(--success); color: #fff; border-color: var(--success); }
+  .sidebar-box-header.grey { background: var(--bg-alt); color: var(--ink-muted); }
+
+  .sidebar-box-body { padding: 1rem; }
+  .sidebar-box-body p {
+    font-size: .8375rem; color: var(--ink-muted); line-height: 1.65; margin-bottom: .75rem;
+  }
+  .sidebar-box-body p:last-of-type { margin-bottom: 0; }
+
+  .sidebar-link {
+    display: inline-flex; align-items: center; gap: .35rem;
+    font-size: .8125rem; font-weight: 700; color: var(--brand);
+    margin-top: .625rem;
+    transition: gap .15s;
+  }
+  .sidebar-link:hover { gap: .55rem; text-decoration: none; }
+
+  .sidebar-ul { list-style: none; display: flex; flex-direction: column; }
+  .sidebar-ul li { border-bottom: 1px solid var(--border); }
+  .sidebar-ul li:last-child { border-bottom: none; }
+  .sidebar-ul a {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .625rem .25rem; font-size: .8375rem; color: var(--ink-muted); gap: .5rem;
+    transition: color .15s;
+  }
+  .sidebar-ul a:hover { color: var(--brand); text-decoration: none; }
+  .sidebar-ul a svg { flex-shrink: 0; color: var(--border); transition: color .15s; }
+  .sidebar-ul a:hover svg { color: var(--brand); }
+
+  /* Mini event in sidebar */
+  .sidebar-event {
+    display: flex; gap: .75rem; align-items: flex-start;
+    padding: .75rem 0; border-bottom: 1px solid var(--border);
+  }
+  .sidebar-event:last-child { border-bottom: none; padding-bottom: 0; }
+  .se-date {
+    font-family: var(--ff-mono); font-size: .75rem; font-weight: 500;
+    color: var(--brand); background: var(--brand-lt);
+    padding: .3rem .5rem; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
+    line-height: 1.3; text-align: center;
+  }
+  .se-info { min-width: 0; }
+  .se-title { font-size: .8rem; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: .15rem; }
+  .se-loc { font-size: .75rem; color: var(--ink-light); }
+
+  /* Newsletter mini form in sidebar */
+  .sidebar-form { display: flex; flex-direction: column; gap: .5rem; }
+  .sidebar-form input {
+    font-family: var(--ff); font-size: .875rem;
+    padding: .6rem .75rem; border: 1.5px solid var(--border);
+    border-radius: var(--r); background: var(--bg); color: var(--ink);
+    outline: none; transition: border-color .15s;
+  }
+  .sidebar-form input::placeholder { color: var(--ink-light); }
+  .sidebar-form input:focus { border-color: var(--brand); }
+  .sidebar-form button {
+    font-family: var(--ff); font-size: .875rem; font-weight: 700;
+    background: var(--brand); color: #fff;
+    border: none; padding: .6875rem; border-radius: var(--r); cursor: pointer;
+    transition: background .15s;
+  }
+  .sidebar-form button:hover { background: var(--brand-h); }
+  .sidebar-note { font-size: .7rem; color: var(--ink-light); text-align: center; margin-top: .25rem !important; }
+
+  /* ════════════════════════════════════════════════════
+     FOOTER
+  ════════════════════════════════════════════════════ */
+  .site-footer {
+    background: var(--ink); color: rgba(255,255,255,.75);
+    padding: 2.5rem var(--pad) 1.5rem;
+  }
+  .footer-inner {
+    max-width: var(--max); margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 2rem; margin-bottom: 2rem;
+  }
+  .footer-brand .logo-f {
+    font-weight: 800; font-size: 1rem; color: #fff; letter-spacing: -.01em;
+    display: block; margin-bottom: .625rem;
+  }
+  .footer-brand p { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.6; max-width: 26ch; }
+  .footer-col h4 {
+    font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.35); margin-bottom: .875rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+  .footer-col a { font-size: .8rem; color: rgba(255,255,255,.6); transition: color .15s; }
+  .footer-col a:hover { color: #fff; text-decoration: none; }
+  .footer-bottom {
+    max-width: var(--max); margin: 0 auto;
+    padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.1);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap;
+    font-size: .75rem; color: rgba(255,255,255,.35);
+  }
+  .footer-bottom a { color: rgba(255,255,255,.35); transition: color .15s; }
+  .footer-bottom a:hover { color: rgba(255,255,255,.6); text-decoration: none; }
+  .footer-legal { display: flex; gap: 1.25rem; }
+
+  /* ════════════════════════════════════════════════════
+     RESPONSIVE
+  ════════════════════════════════════════════════════ */
+  @media (max-width: 960px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .breed-cards { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .header-nav { display: none; }
+    .breed-cards { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .consideration-item { grid-template-columns: 2.25rem 1fr; gap: 0 .875rem; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skoči na sadržaj</a>
+
+<!-- HEADER -->
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="/" class="site-logo">
+      Sitne životinje
+      <span class="logo-sub">Portal uzgajivača</span>
+    </a>
+    <nav class="header-nav" aria-label="Glavna navigacija">
+      <a href="/kalendar">Kalendar izložbi</a>
+      <a href="/kategorije" class="active" aria-current="page">Kategorije</a>
+      <a href="/rase">Rase</a>
+      <a href="/blog">Zajednica</a>
+      <a href="/savezi">Savezi</a>
+      <a href="/o-nama">O nama</a>
+    </nav>
+    <div class="header-right">
+      <div class="lang-switch" aria-label="Jezik">
+        <a href="/sr" class="active">SR</a>
+        <a href="/sr-Cyrl">ЋИ</a>
+        <a href="/en">EN</a>
+      </div>
+      <a href="/kontakt" class="btn-donate">Kontakt</a>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-bar" aria-label="Navigacioni put">
+  <ol class="breadcrumb">
+    <li><a href="/">Početna</a></li>
+    <li><a href="/kategorije">Kategorije životinja</a></li>
+    <li>Kunići i zečevi</li>
+  </ol>
+</div>
+
+<main id="main">
+  <div class="page-wrap">
+
+    <!-- ════════ MAIN CONTENT ════════ -->
+    <article class="content-body">
+
+      <header class="page-header">
+        <p class="page-eyebrow">Kategorija životinja</p>
+        <h1 class="page-title">Kunići i zečevi</h1>
+        <p class="page-subtitle">
+          Sveobuhvatni vodič za uzgajivače: rase, standardi prema EE, nega i pronalazak odgovarajuće životinje iz proverenog uzgoja.
+        </p>
+      </header>
+
+      <p>
+        <strong>Kunići i zečevi</strong> su jedne od najpopularnijih životinja u organizovanom uzgoju u regionu. U Srbiji, Hrvatskoj, Bosni i Hercegovini i Sloveniji postoji duga tradicija uzgoja čistokrvnih rasa prema standardima <strong>Entente Européenne (EE)</strong> — evropske organizacije koja definiše standarde za sve rase sitnih životinja.
+      </p>
+      <p>
+        Pre nego što se odlučite za uzgoj kunića, važno je razumeti da su to <strong>životinje sa složenim potrebama</strong>, koje zahtevaju odgovarajući prostor, ishranu i veterinarsku negu. Ovaj vodič će vam pomoći da odaberete pravu rasu i pronađete pouzdanog uzgajivača.
+      </p>
+
+      <div class="callout">
+        <div class="callout-label">Napomena</div>
+        <p>Sve rase u ovom vodiču su <strong>međunarodno priznate prema EE standardu</strong>. Na izložbama se ocenjuju isključivo čistokrvne životinje sa overenim rodovnikom. Kontaktirajte lokalni savez za informacije o registraciji.</p>
+      </div>
+
+      <!-- ── BREED CARDS ── -->
+      <h2>Koje rase kunića da odaberem?</h2>
+
+      <p>Na izložbama u regionu najzastupljenije su sledeće rase. Kliknite na svaku rasu za detaljan opis, standarde i kontakte uzgajivača.</p>
+
+      <div class="breed-cards" role="list">
+
+        <a href="/rase/angora-kunic" class="breed-card" role="listitem" aria-labelledby="bc-angora">
+          <div class="breed-card-image">
+            <img src="../images/kunic%20(1).jpg" alt="Angora kunić — fotografija">
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-angora">Angora kunić</div>
+            <div class="breed-card-latin">Oryctolagus cuniculus f. dom.</div>
+            <p class="breed-card-desc">Duga svilena dlaka, mirnog temperamenta. Zahteva svakodnevno četkanje. Popularan na izložbama u celom regionu.</p>
+            <span class="breed-card-link">
+              Saznajte više o angori
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/rase/belgijski-div" class="breed-card" role="listitem" aria-labelledby="bc-belgdiv">
+          <div class="breed-card-image">
+            <img src="../images/kunic%20(2).jpg" alt="Belgijski div — fotografija">
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-belgdiv">Belgijski div</div>
+            <div class="breed-card-latin">Oryctolagus cuniculus f. dom.</div>
+            <p class="breed-card-desc">Jedna od najvećih rasa kunića. Mirnog karaktera, potreban veći prostor. Česta rasa na domaćim izložbama.</p>
+            <span class="breed-card-link">
+              Saznajte više o belgijskom divu
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/rase/rexa" class="breed-card" role="listitem" aria-labelledby="bc-rexa">
+          <div class="breed-card-image">
+            <img src="../images/kunic%20(3).jpg" alt="Rexa kunić — fotografija">
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-rexa">Rexa (Rex)</div>
+            <div class="breed-card-latin">Oryctolagus cuniculus f. dom.</div>
+            <p class="breed-card-desc">Karakteristična kratka, plišana dlaka. Postoji u više od 16 priznatih boja. Popularnost raste na svim regionalnim izložbama.</p>
+            <span class="breed-card-link">
+              Saznajte više o reksi
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/rase/holandski-kunic" class="breed-card" role="listitem" aria-labelledby="bc-hol">
+          <div class="breed-card-image">
+            <img src="../images/kunic%20(4).jpg" alt="Holandski kunić — fotografija">
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-hol">Holandski kunić</div>
+            <div class="breed-card-latin">Oryctolagus cuniculus f. dom.</div>
+            <p class="breed-card-desc">Prepoznatljiv dvobojni uzorak — beli prednji deo i obojena zadnja polovina. Kompaktna građa, odlična za početnike.</p>
+            <span class="breed-card-link">
+              Saznajte više o holandskom kuniću
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/rase/lionhead" class="breed-card" role="listitem" aria-labelledby="bc-lion">
+          <div class="breed-card-image" style="background:linear-gradient(135deg,#E8E0D0,#C8BAA0);display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:2.5rem;" aria-hidden="true">🐰</span>
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-lion">Lionhead</div>
+            <div class="breed-card-latin">Oryctolagus cuniculus f. dom.</div>
+            <p class="breed-card-desc">Gusta grива oko glave nalik na lava. Relativno nova rasa u EE standardima, sve popularnija u regionu.</p>
+            <span class="breed-card-link">
+              Saznajte više o lajnhidu
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <a href="/rase/sve-rase-kunica" class="breed-card" role="listitem" aria-labelledby="bc-sve" style="background:var(--bg-alt);">
+          <div class="breed-card-image" style="background:var(--brand-lt);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;">
+            <span style="font-family:var(--ff-mono);font-size:2rem;font-weight:600;color:var(--brand);">+119</span>
+            <span style="font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);">rasa</span>
+          </div>
+          <div class="breed-card-body">
+            <div class="breed-card-name" id="bc-sve">Sve rase kunića</div>
+            <div class="breed-card-latin">Kompletna baza rasa</div>
+            <p class="breed-card-desc">Pregledajte kompletnu listu svih 124 međunarodno priznatih rasa kunića sa opisima i standardima.</p>
+            <span class="breed-card-link" style="color:var(--brand);">
+              Pregledajte sve rase
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- ── 5 CONSIDERATIONS ── -->
+      <h2>5 važnih stvari pre nabavke kunića</h2>
+
+      <ol class="considerations" aria-label="Važne napomene za uzgajivače">
+        <li class="consideration-item">
+          <div class="consideration-num" aria-hidden="true">01</div>
+          <div class="consideration-body">
+            <div class="consideration-title">Prostor i smeštaj</div>
+            <p class="consideration-text">
+              Kunići zahtevaju <strong>dovoljno prostora za kretanje</strong>. Minimalni kavez prema EE smernicama za srednju rasu je 0.6 m². Pored kaveza, preporučuje se prostor za svakodnevno slobodno kretanje od najmanje 2 m². Proverite lokalne propise o uzgoju pre početka.
+            </p>
+          </div>
+        </li>
+        <li class="consideration-item">
+          <div class="consideration-num" aria-hidden="true">02</div>
+          <div class="consideration-body">
+            <div class="consideration-title">Ishrana i veterinarska nega</div>
+            <p class="consideration-text">
+              Osnova ishrane treba da bude <strong>kvalitetno seno</strong> (70% obroka), dopunjeno svežim povrćem i granulama. Kunići zahtevaju redovne preglede, vakcinaciju protiv miksomatoze i VHD2 bolesti. Pronađite veterinara koji se specijalizuje za sitne životinje.
+            </p>
+          </div>
+        </li>
+        <li class="consideration-item">
+          <div class="consideration-num" aria-hidden="true">03</div>
+          <div class="consideration-body">
+            <div class="consideration-title">Rodovnik i registracija</div>
+            <p class="consideration-text">
+              Za učešće na zvaničnim izložbama, vaš kunić mora imati <strong>overeni rodovnik</strong> koji izdaje nadležni savez. U Srbiji to je Savez zečara RS (SZRS), u Hrvatskoj HSUGPKPZ. Bez rodovnika nije moguće takmičenje.
+            </p>
+          </div>
+        </li>
+        <li class="consideration-item">
+          <div class="consideration-num" aria-hidden="true">04</div>
+          <div class="consideration-body">
+            <div class="consideration-title">Priprema za izložbu</div>
+            <p class="consideration-text">
+              Izložbena priprema počinje <strong>mesecima unapred</strong>: kondicioniranje dlake, uvežbavanje mirnog ponašanja u kavezu, pravilna ishrana za sjaj krzna. Na izložbi ocenjivač proverava telesnu građu, dlaku, boju i ponašanje prema EE standardu za tu rasu.
+            </p>
+          </div>
+        </li>
+        <li class="consideration-item">
+          <div class="consideration-num" aria-hidden="true">05</div>
+          <div class="consideration-body">
+            <div class="consideration-title">Zajednica i podrška</div>
+            <p class="consideration-text">
+              Pridružite se lokalnom savezu pre nego što kupite prvog kunića. <strong>Iskusni uzgajivači</strong> su neprocenjiv izvor informacija i mogu vam pomoći sa odabirom rase, pronalaskom pouzdanog uzgajivača i prvim koracima na izložbama.
+            </p>
+          </div>
+        </li>
+      </ol>
+
+      <div class="callout success">
+        <div class="callout-label">Savet uredništva</div>
+        <p>Pre kupovine, posetite bar jednu izložbu u svojoj regiji. Tu ćete videti rase „uživo", razgovarati sa uzgajivačima i dobiti odgovore na sva pitanja — bez obaveze. Kalendar izložbi u vašoj regiji pronađite <a href="/kalendar">ovde</a>.</p>
+      </div>
+
+      <!-- ── WHERE TO GET ── -->
+      <h2>Gde nabaviti kunića iz pouzdanog uzgoja?</h2>
+
+      <p>Preporučujemo da kupujete isključivo od registrovanih uzgajivača koji su članovi nadležnog saveza. Evo na šta da obratite pažnju:</p>
+
+      <div class="checklist-box">
+        <h3>Proverite pre kupovine</h3>
+        <ul class="checklist">
+          <li><strong>Registracija uzgajivača</strong> u SZRS (Srbija), HSUGPKPZ (Hrvatska) ili odgovarajućem savezu</li>
+          <li><strong>Rodovnik životinje</strong> — original, ne kopija, sa pečatom saveza</li>
+          <li><strong>Veterinarski karton</strong> sa evidencijom vakcinacija i pregleda</li>
+          <li><strong>Uslovi smeštaja</strong> — pitajte da vidite gde su životinje uzgajane</li>
+          <li><strong>Roditelji životinje</strong> — fotografije ili uvid u živo ako je moguće</li>
+          <li><strong>Reference</strong> — tražite kontakte prethodnih kupaca ili izložbene rezultate</li>
+        </ul>
+      </div>
+
+      <div class="callout warning">
+        <div class="callout-label">Upozorenje</div>
+        <p>Izbegavajte oglase bez rodovnika ili gde uzgajivač ne želi da pokaže uslove uzgoja. <strong>Neodgovorni uzgajivači i uzgajivačnice sa fabričkim uslovima</strong> nanose štetu i životinjama i celoj zajednici.</p>
+      </div>
+
+      <!-- ── UPCOMING EVENTS ── -->
+      <h2>Predstojeće izložbe kunića</h2>
+
+      <p>Naredne izložbe na kojima možete videti rase uživo i razgovarati sa uzgajivačima:</p>
+
+      <div class="event-list-content" aria-label="Predstojeće izložbe kunića">
+        <a href="/kalendar/izlozba-kunica-banja-luka-2025" class="event-row-content">
+          <div class="erc-date" aria-hidden="true">
+            <span class="day">10</span>
+            <span class="mon">MAJ</span>
+          </div>
+          <div class="erc-info">
+            <div class="erc-title">Regionalna izložba kunića — Banja Luka</div>
+            <div class="erc-meta">
+              <span>Banja Luka, Bosna i Hercegovina</span>
+              <span>Organizuje: SZRS</span>
+            </div>
+          </div>
+          <svg class="erc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a href="/kalendar/prolicna-izlozba-novi-sad-2025" class="event-row-content">
+          <div class="erc-date" aria-hidden="true" style="background:var(--accent);">
+            <span class="day">17</span>
+            <span class="mon">MAJ</span>
+          </div>
+          <div class="erc-info">
+            <div class="erc-title">Prolećna izložba malih životinja — Novi Sad 2025</div>
+            <div class="erc-meta">
+              <span>Novi Sad, Srbija</span>
+              <span>Organizuje: SUS</span>
+              <span style="color:var(--accent);font-weight:600;">Istaknuto</span>
+            </div>
+          </div>
+          <svg class="erc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <a href="/kalendar/drzavno-takmicenje-kunica-ljubljana-2025" class="event-row-content">
+          <div class="erc-date" aria-hidden="true">
+            <span class="day">21</span>
+            <span class="mon">JUN</span>
+          </div>
+          <div class="erc-info">
+            <div class="erc-title">Državno takmičenje kunića — Ljubljana</div>
+            <div class="erc-meta">
+              <span>Ljubljana, Slovenija</span>
+              <span>Organizuje: ZRS</span>
+            </div>
+          </div>
+          <svg class="erc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+      <p><a href="/kalendar?kategorija=kunici">Pogledajte sve izložbe kunića u regionu →</a></p>
+
+    </article>
+
+    <!-- ════════ SIDEBAR ════════ -->
+    <aside class="sidebar" aria-label="Dodatne informacije">
+
+      <!-- Savez box -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header blue">Savez zečara Srbije</div>
+        <div class="sidebar-box-body">
+          <p>Zvanična organizacija za registraciju uzgajivača i izdavanje rodovnika u Srbiji. Član Entente Européenne.</p>
+          <p><strong>Novi Sad</strong> · osnovan 1947.</p>
+          <a href="/savezi/szrs" class="sidebar-link">
+            Kontakt i informacije
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- EE Standard box -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header grey">EE Standard za kunića</div>
+        <div class="sidebar-box-body">
+          <p>Entente Européenne definiše standarde za sve međunarodno priznate rase. Standard opisuje idealne mere, boje, građu i dlaku za svaku rasu.</p>
+          <ul class="sidebar-ul">
+            <li><a href="/rase?kategorija=kunici&velicina=mala">Male rase <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/rase?kategorija=kunici&velicina=srednja">Srednje rase <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/rase?kategorija=kunici&velicina=velika">Velike rase <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/rase?kategorija=kunici&dlaka=duga">Rase duge dlake <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/rase?kategorija=kunici&dlaka=kratka">Rase kratke dlake <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Upcoming events sidebar box -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header amber">Uskoro — izložbe</div>
+        <div class="sidebar-box-body">
+          <div class="sidebar-event">
+            <div class="se-date">10<br>MAJ</div>
+            <div class="se-info">
+              <div class="se-title">Regionalna izložba kunića</div>
+              <div class="se-loc">Banja Luka, BiH</div>
+            </div>
+          </div>
+          <div class="sidebar-event">
+            <div class="se-date">17<br>MAJ</div>
+            <div class="se-info">
+              <div class="se-title">Prolećna izložba — Novi Sad</div>
+              <div class="se-loc">Novi Sad, Srbija</div>
+            </div>
+          </div>
+          <div class="sidebar-event">
+            <div class="se-date">21<br>JUN</div>
+            <div class="se-info">
+              <div class="se-title">Državno takmičenje kunića</div>
+              <div class="se-loc">Ljubljana, Slovenija</div>
+            </div>
+          </div>
+          <a href="/kalendar?kategorija=kunici" class="sidebar-link" style="margin-top:.75rem;display:inline-flex;">
+            Svi termini
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header green">Newsletter uzgajivača</div>
+        <div class="sidebar-box-body">
+          <p>Mesečni pregled izložbi, izmena EE standarda i saveta iz zajednice uzgajivača.</p>
+          <form class="sidebar-form" action="#" aria-label="Prijava na newsletter">
+            <label for="sb-email" class="sr-only">E-mail adresa</label>
+            <input type="email" id="sb-email" name="email" placeholder="vasa@adresa.rs" autocomplete="email" required>
+            <button type="submit">Prijavite se</button>
+          </form>
+          <p class="sidebar-note">Odjavite se u svakom trenutku · GDPR</p>
+        </div>
+      </div>
+
+      <!-- Related categories -->
+      <div class="sidebar-box">
+        <div class="sidebar-box-header grey">Srodne kategorije</div>
+        <div class="sidebar-box-body" style="padding:0;">
+          <ul class="sidebar-ul" style="padding:0 1rem;">
+            <li><a href="/kategorije/zamorci">Zamorci i glodari <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/kategorije/golubovi">Golubovi i ptice <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/kategorije/kokoske">Kokoške i perad <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/kategorije/zivina">Živina i patke <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+            <li><a href="/kategorije">Sve kategorije <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo-f">Sitne životinje.</span>
+      <p>Portal i zajednica uzgajivača sitnih životinja u Srbiji i regionu. Kalendar izložbi, baza rasa i organizacije.</p>
+    </div>
+    <nav class="footer-col" aria-label="Događaji">
+      <h4>Događaji</h4>
+      <ul>
+        <li><a href="/kalendar">Kalendar izložbi</a></li>
+        <li><a href="/kalendar?region=srbija">Srbija</a></li>
+        <li><a href="/kalendar?region=hrvatska">Hrvatska</a></li>
+        <li><a href="/kalendar?region=bih">Bosna i Hercegovina</a></li>
+        <li><a href="/kalendar?region=slovenija">Slovenija</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Životinje">
+      <h4>Životinje</h4>
+      <ul>
+        <li><a href="/kategorije">Sve kategorije</a></li>
+        <li><a href="/rase">Baza rasa</a></li>
+        <li><a href="/kategorije/kunici">Kunići i zečevi</a></li>
+        <li><a href="/kategorije/golubovi">Golubovi</a></li>
+        <li><a href="/kategorije/zamorci">Zamorci</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Portal">
+      <h4>Portal</h4>
+      <ul>
+        <li><a href="/blog">Iz zajednice</a></li>
+        <li><a href="/savezi">Savezi</a></li>
+        <li><a href="/o-nama">O nama</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Sitne životinje. Sva prava zadržana.</span>
+    <div class="footer-legal">
+      <a href="/privatnost">Privatnost</a>
+      <a href="/uslovi">Uslovi korišćenja</a>
+      <a href="/kolacici">Kolačići</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

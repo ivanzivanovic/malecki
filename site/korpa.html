@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Korpa — malecki.rs</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="index.html" class="logo"><span class="mark">malecki<span class="dot">.</span>rs</span><span class="tag">KLUB LJUBITELJA SITNIH ŽIVOTINJA</span></a>
+      <form class="search" role="search" onsubmit="event.preventDefault()">
+        <input type="search" placeholder="Šta tražite?">
+        <button aria-label="Pretraga"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+      </form>
+      <div class="utils">
+        <a href="ukljuci-se.html" class="util help"><span class="ic">+</span>Pomoć</a>
+        <a href="sta-radimo.html" class="util find"><span class="ic">◉</span>Pronađi nas</a>
+        <a href="ukljuci-se.html" class="util my"><span class="ic">◐</span>Moj nalog</a>
+        <a href="korpa.html" class="cart-btn" aria-label="Korpa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-count" hidden>0</span></a>
+        <a href="ukljuci-se.html" class="donate-btn"><svg viewBox="0 0 24 24" fill="#fff" width="16" height="16"><path d="M20 6 9 17l-5-5"/></svg>Učlani se</a>
+      </div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="saveti.html">Saveti i nega</a>
+      <a href="kalendar.html">Kalendar izložbi</a>
+      <a href="sta-radimo.html">Šta radimo</a>
+      <a href="ukljuci-se.html">Uključi se</a>
+      <a href="prodavnica.html">Prodavnica</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="page-head-inner">
+      <div class="crumbs"><a href="index.html">Početna</a> · <a href="prodavnica.html">Prodavnica</a> · Korpa</div>
+      <h1>Vaša korpa</h1>
+      <p>Pregled artikala koje ste dodali. Količine možete menjati direktno u listi.</p>
+    </div>
+  </header>
+
+  <section class="section">
+
+    <div id="cart-list" class="cart-list" aria-live="polite"></div>
+
+    <div id="cart-empty" class="cart-empty" style="display:none">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <h3>Korpa je prazna</h3>
+      <p>Niste još dodali nijedan artikal. Pogledajte šta nudi klupska prodavnica.</p>
+      <a href="prodavnica.html" class="btn-pink">Idi u prodavnicu</a>
+    </div>
+
+    <div id="cart-foot" class="cart-foot" style="display:none">
+      <div class="cart-total">
+        <span class="lbl">Ukupno za naplatu</span>
+        <span class="amt" id="cart-total-amt">0 RSD</span>
+        <span class="cnt"><span id="cart-total-cnt">0</span> artikala u korpi</span>
+      </div>
+      <div class="cart-actions">
+        <a href="prodavnica.html" class="btn-ghost">← Nastavi kupovinu</a>
+        <button id="cart-clear" class="btn-ghost" type="button">Isprazni korpu</button>
+        <button id="cart-submit" class="btn-pink" type="button">Naruči</button>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="section">
+    <div class="promo-2">
+      <div class="promo teal">
+        <div>
+          <h3>Klupski popust 20%</h3>
+          <p>Aktivni članovi automatski dobijaju popust pri naplati. Učlanite se pre slanja narudžbine.</p>
+        </div>
+        <a href="ukljuci-se.html" class="btn">Učlani se</a>
+      </div>
+      <div class="promo image">
+        <h3>Šaljemo u zemlje regiona</h3>
+        <p>Trošak isporuke se dodaje pri naplati. Za narudžbine preko 50.000 RSD — besplatna dostava.</p>
+        <a href="#" class="btn">Uslovi isporuke</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="logo-col">
+        <a href="index.html" class="logo"><span class="mark">malecki<span class="dot">.</span>rs</span><span class="tag">KLUB LJUBITELJA SITNIH ŽIVOTINJA</span></a>
+        <p class="reg">© Klub ljubitelja sitnih životinja.<br>Registrovano udruženje, član EE — Entente Européenne.</p>
+      </div>
+      <div class="col"><h4>Brzi linkovi</h4><ul><li><a href="sta-radimo.html">Kontakt</a></li><li><a href="sta-radimo.html">O nama</a></li><li><a href="ukljuci-se.html">Učlani se</a></li><li><a href="saveti.html">Blog</a></li></ul></div>
+      <div class="col"><h4>Šta radimo</h4><ul><li><a href="kalendar.html">Kalendar izložbi</a></li><li><a href="saveti.html">Edukacija</a></li><li><a href="kunicarstvo.html">Autohtone rase</a></li><li><a href="ukljuci-se.html">Volontiranje</a></li></ul></div>
+      <div class="col"><h4>Pravno</h4><ul><li><a href="#">Uslovi korišćenja</a></li><li><a href="#">Politika privatnosti</a></li><li><a href="#">Kolačići</a></li></ul></div>
+      <div class="accred-col">
+        <div class="social"><a href="#">f</a><a href="#">𝕏</a><a href="#">IG</a><a href="#">in</a><a href="#">▶</a></div>
+        <div class="accred"><span class="b">EE<small>član saveza</small></span><span class="b">FCI<small>partner</small></span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/cart.js"></script>
+</body>
+</html>

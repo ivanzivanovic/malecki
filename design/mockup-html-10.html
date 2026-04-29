@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="sr-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>malecki.rs — Klub ljubitelja sitnih životinja</title>
+<style>
+  :root{
+    --teal:#0E9C90;
+    --teal-dark:#0B847A;
+    --pink:#E50F86;
+    --pink-dark:#C20C72;
+    --blue:#1597D6;
+    --ink:#1A1A1A;
+    --muted:#5C5C5C;
+    --line:#E5E8EC;
+    --bg-soft:#F4F7F9;
+    --footer:#5A5A58;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Helvetica Neue", Arial, sans-serif;
+    color:var(--ink); background:#fff;
+    -webkit-font-smoothing:antialiased; line-height:1.45;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  /* ===== Top utility bar ===== */
+  .topbar{background:var(--bg-soft);border-bottom:1px solid var(--line)}
+  .topbar-inner{
+    max-width:1280px;margin:0 auto;
+    padding:14px 32px; display:flex;align-items:center;gap:28px;
+  }
+  .logo{display:flex;flex-direction:column;line-height:1;font-weight:900}
+  .logo .mark{
+    font-size:46px;color:var(--teal);letter-spacing:-2px;
+    font-family:"Trebuchet MS","Helvetica Neue",sans-serif;
+  }
+  .logo .mark .dot{color:var(--pink)}
+  .logo .tag{
+    font-size:10.5px;color:var(--pink);font-weight:700;
+    letter-spacing:1px;margin-top:4px;
+  }
+
+  .search{
+    flex:1;max-width:430px;
+    display:flex;align-items:stretch;
+    border-radius:6px;overflow:hidden;
+    border:1px solid #D8DEE3;background:#fff;
+  }
+  .search input{
+    flex:1;border:0;padding:12px 16px;
+    font-size:15px;color:#5C5C5C;outline:0;background:transparent;
+  }
+  .search button{
+    border:0;background:var(--teal);color:#fff;width:52px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .search button svg{width:18px;height:18px}
+
+  .utils{display:flex;align-items:center;gap:26px}
+  .util{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--teal);font-weight:700;font-size:14.5px;
+  }
+  .util .ic{
+    width:22px;height:22px;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:900;font-size:13px;
+  }
+  .util.help .ic{background:#37B27A}
+  .util.find .ic{background:var(--teal)}
+  .util.my .ic{background:var(--teal)}
+  .donate-btn{
+    background:var(--pink);color:#fff;
+    padding:13px 26px;border-radius:30px;
+    font-weight:800;font-size:15px;
+    display:inline-flex;align-items:center;gap:9px;
+  }
+  .donate-btn:hover{background:var(--pink-dark)}
+
+  /* ===== Main nav ===== */
+  .nav{background:#fff;border-bottom:1px solid var(--line)}
+  .nav-inner{
+    max-width:1280px;margin:0 auto;padding:0 32px;
+    display:flex;justify-content:space-around;
+  }
+  .nav a{
+    padding:22px 8px;font-weight:800;font-size:16px;
+    color:var(--ink);border-bottom:3px solid transparent;
+    transition:border-color .15s;
+  }
+  .nav a:hover,.nav a.active{border-bottom-color:var(--pink)}
+
+  /* ===== Hero ===== */
+  .hero{background:var(--blue);color:#fff;overflow:hidden}
+  .hero-grid{
+    max-width:1280px;margin:0 auto;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  }
+  .hero-text{padding:64px 48px 64px 64px;max-width:560px}
+  .hero-text h1{
+    font-size:54px;line-height:1.05;margin:0 0 22px;
+    font-weight:900;letter-spacing:-0.5px;
+  }
+  .hero-text p{font-size:19px;line-height:1.45;margin:0 0 32px;max-width:460px}
+  .cta{
+    display:inline-block;background:var(--pink);color:#fff;
+    font-weight:900;font-size:20px;letter-spacing:.5px;
+    padding:18px 36px;border-radius:6px;text-transform:uppercase;
+    box-shadow:0 2px 0 rgba(0,0,0,.08);
+  }
+  .cta:hover{background:var(--pink-dark)}
+  .hero-link{
+    display:block;margin-top:22px;color:#fff;
+    font-style:italic;text-decoration:underline;font-size:15px;
+  }
+  .hero-image{
+    position:relative;min-height:520px;overflow:hidden;
+    background:#0E84BD;
+  }
+  .hero-image img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;
+  }
+
+  /* ===== Calendar (replaces donate strip) ===== */
+  .cal-strip{
+    background:#1A1A1A;color:#fff;position:relative;overflow:hidden;
+  }
+  .cal-strip::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 90% 50%, rgba(21,151,214,.35) 0%, transparent 60%),
+      radial-gradient(ellipse at 0% 0%, rgba(229,15,134,.15) 0%, transparent 50%);
+  }
+  .cal-strip-inner{
+    max-width:1280px;margin:0 auto;padding:60px 32px;
+    position:relative;z-index:2;
+  }
+  .cal-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    flex-wrap:wrap;gap:24px;margin-bottom:36px;
+  }
+  .cal-head h2{
+    margin:0;font-size:42px;line-height:1.1;font-weight:900;letter-spacing:-0.5px;
+  }
+  .cal-head h2 small{
+    display:block;font-size:14px;font-weight:700;
+    text-transform:uppercase;letter-spacing:2px;color:var(--pink);
+    margin-bottom:10px;
+  }
+  .cal-filters{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    border:1px solid rgba(255,255,255,.3);
+    color:#fff;padding:8px 16px;border-radius:30px;
+    font-weight:700;font-size:13px;cursor:pointer;
+  }
+  .chip.active{background:var(--pink);border-color:var(--pink)}
+
+  .cal-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  }
+  .ev{
+    background:#262626;border-radius:6px;
+    display:grid;grid-template-columns:84px 1fr;
+    overflow:hidden;border:1px solid rgba(255,255,255,.08);
+    transition:transform .15s, border-color .15s;
+  }
+  .ev:hover{transform:translateY(-2px);border-color:var(--pink)}
+  .ev .date{
+    background:var(--pink);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:14px 6px;text-align:center;
+  }
+  .ev .date .d{font-size:26px;font-weight:900;line-height:1}
+  .ev .date .m{
+    font-size:11px;font-weight:800;letter-spacing:1.5px;
+    text-transform:uppercase;margin-top:4px;
+  }
+  .ev .date .y{font-size:10px;opacity:.85;margin-top:2px}
+  .ev .body{padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .ev .place{
+    color:var(--teal);font-weight:800;font-size:11.5px;
+    letter-spacing:1px;text-transform:uppercase;
+    display:flex;align-items:center;gap:6px;
+  }
+  .ev .place::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:var(--teal);
+  }
+  .ev .name{
+    font-size:15px;font-weight:800;color:#fff;line-height:1.3;
+  }
+  .ev .meta{
+    font-size:12px;color:#B5B5B5;display:flex;gap:10px;flex-wrap:wrap;
+  }
+  .ev .meta span::before{content:"·";margin-right:8px;color:#666}
+  .ev .meta span:first-child::before{content:""}
+
+  .cal-foot{
+    margin-top:32px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+  }
+  .btn-pink{
+    background:var(--pink);color:#fff;font-weight:900;
+    padding:14px 26px;border-radius:6px;text-transform:uppercase;
+    letter-spacing:.5px;font-size:14px;
+  }
+  .btn-pink:hover{background:var(--pink-dark)}
+  .cal-foot .lnk{
+    color:#fff;font-style:italic;text-decoration:underline;font-size:14px;
+  }
+
+  /* ===== Categories ===== */
+  .cats{background:#fff;padding:64px 0 32px}
+  .cats-inner{max-width:1280px;margin:0 auto;padding:0 32px}
+  .cats-head{text-align:center;margin-bottom:36px}
+  .cats-head .kicker{
+    color:var(--pink);font-size:13px;font-weight:800;
+    letter-spacing:2px;text-transform:uppercase;margin:0 0 10px;
+  }
+  .cats-head h2{
+    margin:0;font-size:38px;font-weight:900;line-height:1.1;letter-spacing:-0.5px;
+  }
+  .cats-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+  }
+  .cat{
+    position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+    min-height:230px;border-radius:6px;overflow:hidden;
+    padding:24px 22px;color:#fff;
+    background-size:cover;background-position:center;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .cat::before{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,.85) 100%);
+    transition:background .15s;
+  }
+  .cat:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+  .cat:hover::before{background:linear-gradient(180deg,rgba(229,15,134,.05) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.9) 100%)}
+  .cat > *{position:relative;z-index:2}
+  .cat h3{margin:0 0 8px;font-size:20px;font-weight:900;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+  .cat p{margin:0 0 14px;font-size:13.5px;color:#fff;opacity:.95;line-height:1.45;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+  .cat .more{
+    color:#fff;font-weight:900;font-size:12.5px;
+    text-transform:uppercase;letter-spacing:.5px;
+    text-shadow:0 1px 2px rgba(0,0,0,.5);
+  }
+  .cat:hover .more{color:#FFC0E0}
+  .cat.golub{background-image:url('../images/golub.jpg')}
+  .cat.zivin{background-image:url('../images/koka.jpg')}
+  .cat.kunic{background-image:url('../images/kunic.jpg')}
+  .cat.ptice{background-image:url('../images/kanarinac.jpg')}
+  .cat.glodar{background-image:url('../images/hrcak.jpg')}
+
+  /* ===== Two-column promo ===== */
+  .section{max-width:1280px;margin:0 auto;padding:36px 32px}
+  .promo-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .promo{
+    border-radius:4px;overflow:hidden;
+    min-height:240px;display:flex;flex-direction:column;justify-content:space-between;
+    color:#fff;padding:28px;
+  }
+  .promo h3{margin:0 0 14px;font-size:24px;font-weight:900;line-height:1.15}
+  .promo p{margin:0 0 16px;font-size:14.5px;line-height:1.45;max-width:300px}
+  .promo .btn{
+    background:#fff;color:var(--teal);font-weight:900;font-size:14px;
+    padding:14px 22px;border-radius:4px;text-align:center;text-transform:uppercase;
+    align-self:stretch;letter-spacing:.5px;
+  }
+  .promo.teal{background:var(--teal)}
+  .promo.image{
+    background:linear-gradient(135deg,#9CC766 0%,#5E9A33 100%);
+    position:relative;
+  }
+  .promo.image::after{
+    content:"";position:absolute;right:-10%;bottom:0;width:60%;height:100%;
+    background:
+      radial-gradient(circle at 60% 40%, #C9914F 0%, #A06B2D 25%, transparent 60%),
+      radial-gradient(circle at 60% 80%, #6E4827 0%, transparent 50%);
+    opacity:.95;
+  }
+  .promo.image h3,.promo.image p{position:relative;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .promo.image .btn{position:relative;z-index:2;width:fit-content;min-width:50%}
+  .promo.image.warning{
+    background:linear-gradient(135deg,#A93226 0%,#6E1A12 100%);
+  }
+  .promo.image.warning::after{
+    background:
+      radial-gradient(circle at 70% 35%, rgba(0,0,0,.25) 0%, transparent 60%),
+      repeating-linear-gradient(135deg, rgba(0,0,0,0) 0 18px, rgba(0,0,0,.08) 18px 36px);
+    opacity:.6;
+  }
+  .warn-chip{
+    background:#FFC233;color:#1A1A1A;
+    padding:6px 12px;border-radius:30px;
+    font-weight:900;font-size:11px;
+    text-transform:uppercase;letter-spacing:.5px;
+    display:inline-flex;align-items:center;gap:6px;
+    width:fit-content;margin-bottom:14px;
+    position:relative;z-index:2;
+  }
+  .promo.image.warning p strong{color:#FFC233;font-weight:900}
+  .promo.image.warning .btn{color:#A93226}
+
+  /* ===== Three-column promo ===== */
+  .promo-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:start}
+  .card{display:flex;flex-direction:column}
+  .card .img{
+    width:100%;aspect-ratio:4/3;border-radius:4px;overflow:hidden;margin-bottom:14px;
+    background:#ddd;
+  }
+  .card .img img{width:100%;height:100%;object-fit:cover}
+  .card h3{margin:4px 0 8px;font-size:18px;font-weight:900;color:var(--ink)}
+  .card p{margin:0 0 14px;font-size:14px;color:var(--ink);line-height:1.45}
+  .card .btn-teal{
+    background:var(--teal);color:#fff;font-weight:900;font-size:13px;
+    padding:14px;border-radius:4px;text-align:center;text-transform:uppercase;letter-spacing:.5px;
+  }
+  .card.featured h3{font-size:22px;margin-top:0}
+  .card.featured .head{padding-bottom:8px}
+
+  /* ===== Footer ===== */
+  .footer{background:var(--footer);color:#fff;margin-top:48px}
+  .footer-inner{
+    max-width:1280px;margin:0 auto;padding:42px 32px;
+    display:grid;grid-template-columns:280px 1fr 1fr 1fr 240px;gap:36px;align-items:start;
+  }
+  .footer .logo .mark{color:#fff}
+  .footer .logo .mark .dot{color:#fff}
+  .footer .logo .tag{color:#fff;opacity:.85}
+  .footer .reg{font-size:11px;opacity:.85;margin-top:14px;line-height:1.5}
+  .col h4{
+    margin:0 0 16px;font-size:13px;letter-spacing:1px;
+    text-transform:uppercase;font-weight:800;
+  }
+  .col ul{list-style:none;padding:0;margin:0;border-left:1px solid rgba(255,255,255,.25)}
+  .col ul li a{
+    display:block;padding:6px 14px;font-size:14px;color:#fff;opacity:.95;
+  }
+  .social{display:flex;gap:10px;margin-bottom:18px}
+  .social a{
+    width:30px;height:30px;border-radius:4px;background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;
+  }
+  .accred{display:flex;gap:10px;align-items:center}
+  .accred .b{
+    background:#fff;color:#444;font-weight:900;font-size:11px;
+    padding:8px 10px;border-radius:4px;display:inline-flex;align-items:center;gap:6px;
+  }
+  .accred .b small{font-weight:600;display:block;font-size:8px;color:#777}
+
+  @media (max-width:1080px){
+    .footer-inner{grid-template-columns:1fr 1fr 1fr;gap:24px}
+    .footer .logo-col{grid-column:1/-1}
+    .accred-col{grid-column:1/-1}
+    .promo-3{grid-template-columns:1fr 1fr}
+    .cal-grid{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:780px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-image{min-height:340px}
+    .hero-text{padding:48px 28px}
+    .hero-text h1{font-size:40px}
+    .topbar-inner{flex-wrap:wrap;gap:16px}
+    .search{order:3;flex-basis:100%;max-width:none}
+    .nav-inner{overflow-x:auto;justify-content:flex-start;gap:18px}
+    .promo-2,.promo-3,.cal-grid{grid-template-columns:1fr}
+    .footer-inner{grid-template-columns:1fr}
+    .cal-head h2{font-size:28px}
+    .cats-grid{grid-template-columns:1fr 1fr}
+    .cats-head h2{font-size:28px}
+  }
+  @media (max-width:1080px){
+    .cats-grid{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+
+  <!-- ===== Top utility bar ===== -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a href="#" class="logo" aria-label="Klub ljubitelja sitnih životinja">
+        <span class="mark">malecki<span class="dot">.</span>rs</span>
+        <span class="tag">KLUB LJUBITELJA SITNIH ŽIVOTINJA</span>
+      </a>
+
+      <form class="search" role="search" onsubmit="event.preventDefault()">
+        <input type="search" placeholder="Šta tražite?">
+        <button aria-label="Pretraga">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="utils">
+        <a href="#" class="util help"><span class="ic">+</span>Pomoć</a>
+        <a href="#" class="util find"><span class="ic">◉</span>Pronađi nas</a>
+        <a href="#" class="util my"><span class="ic">◐</span>Moj nalog</a>
+        <a href="#" class="donate-btn">
+          <svg viewBox="0 0 24 24" fill="#fff" width="16" height="16">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Učlani se
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Main navigation ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="active">Saveti i nega</a>
+      <a href="#">Kalendar izložbi</a>
+      <a href="#">Šta radimo</a>
+      <a href="#">Uključi se</a>
+      <a href="#">Prodavnica</a>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <h1>Zajednica<br>odgajivača i<br>ljubitelja</h1>
+        <p>
+          Klub okuplja odgajivače i ljubitelje sitnih životinja iz Srbije i regiona —
+          zečeva, golubova, ukrasne živine, hrčaka, zamoraca i ptica. Pratimo
+          izložbe, delimo iskustva i čuvamo autohtone rase.
+        </p>
+        <a href="#" class="cta">Pogledaj kalendar</a>
+        <a href="#" class="hero-link"><em>Novi ste? Saznajte kako da se učlanite.</em></a>
+      </div>
+
+      <div class="hero-image" aria-hidden="true">
+        <img src="../images/hrcak.jpg" alt="Hrčak" loading="eager">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Calendar of events (replaces donate strip) ===== -->
+  <section class="cal-strip">
+    <div class="cal-strip-inner">
+      <div class="cal-head">
+        <h2>
+          <small>Kalendar dešavanja</small>
+          Predstojeće izložbe i berze
+        </h2>
+        <div class="cal-filters" role="tablist">
+          <button class="chip active">Sve</button>
+          <button class="chip">Srbija</button>
+          <button class="chip">Hrvatska</button>
+          <button class="chip">Slovenija</button>
+          <button class="chip">BiH</button>
+          <button class="chip">Evropa</button>
+        </div>
+      </div>
+
+      <div class="cal-grid">
+        <a href="#" class="ev">
+          <div class="date"><span class="d">02</span><span class="m">Jun</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Utrecht · Holandija</span>
+            <span class="name">VIV Europe — sajam živinarstva</span>
+            <span class="meta"><span>2–4. jun</span><span>EE članice</span><span>Profesionalni</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">06</span><span class="m">Jun</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Sombor · Srbija</span>
+            <span class="name">Prolećna berza sitnih životinja</span>
+            <span class="meta"><span>UO „Sombor 1871"</span><span>Berza · izlaganje</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">26</span><span class="m">Sep</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Novi Sad · Srbija</span>
+            <span class="name">LORIST — izložba mladih grla</span>
+            <span class="meta"><span>UZOSŽ Novi Sad</span><span>Sajam lova i ribolova</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">24</span><span class="m">Okt</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Vršac · Srbija</span>
+            <span class="name">Međunarodna izložba i berza</span>
+            <span class="meta"><span>UO „Vršački prevrtač"</span><span>Golubovi · kunići · živina</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">10</span><span class="m">Nov</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Hanover · Nemačka</span>
+            <span class="name">EuroTier — međunarodni B2B sajam</span>
+            <span class="meta"><span>10–13. novembar</span><span>Profesionalni</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">21</span><span class="m">Nov</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Subotica · Srbija</span>
+            <span class="name">Tradicionalna međunarodna izložba</span>
+            <span class="meta"><span>200+ izlagača</span><span>1.700+ eksponata</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">05</span><span class="m">Dec</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Bela Palanka · Srbija</span>
+            <span class="name">Izložba sitnih životinja „Banjica"</span>
+            <span class="meta"><span>Društvo „Odgajivač"</span><span>800+ eksponata</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">12</span><span class="m">Dec</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Niška Banja · Srbija</span>
+            <span class="name">Decembarska izložba u balon-hali</span>
+            <span class="meta"><span>1.600+ životinja</span><span>Međunarodno</span></span>
+          </div>
+        </a>
+
+        <a href="#" class="ev">
+          <div class="date"><span class="d">19</span><span class="m">Dec</span><span class="y">2026</span></div>
+          <div class="body">
+            <span class="place">Prnjavor · BiH</span>
+            <span class="name">UZSŽ „Feniks" — međunarodna izložba</span>
+            <span class="meta"><span>1.000+ eksponata</span><span>Sportska dvorana „Sloga"</span></span>
+          </div>
+        </a>
+      </div>
+
+      <div class="cal-foot">
+        <a href="#" class="btn-pink">Pogledaj ceo kalendar</a>
+        <a href="#" class="lnk"><em>Organizator ste? Prijavite svoje dešavanje →</em></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Categories ===== -->
+  <section class="cats">
+    <div class="cats-inner">
+      <div class="cats-head">
+        <p class="kicker">Istraži po kategoriji</p>
+        <h2>Šta tražiš?</h2>
+      </div>
+      <div class="cats-grid">
+
+        <a href="#" class="cat golub">
+          <h3>Golubarstvo</h3>
+          <p>Visokoletači, prevrtači, gušani, ukrasni golubovi.</p>
+          <span class="more">12 rasa →</span>
+        </a>
+
+        <a href="#" class="cat zivin">
+          <h3>Živinarstvo</h3>
+          <p>Rasne kokoške, patuljaste rase, patke, guske, fazani.</p>
+          <span class="more">8 rasa →</span>
+        </a>
+
+        <a href="#" class="cat kunic">
+          <h3>Kunićarstvo</h3>
+          <p>Od patuljastih do džinovskih rasa kunića.</p>
+          <span class="more">6 rasa →</span>
+        </a>
+
+        <a href="#" class="cat ptice">
+          <h3>Ptice</h3>
+          <p>Kanarinci, papagaji, egzote.</p>
+          <span class="more">14 rasa →</span>
+        </a>
+
+        <a href="#" class="cat glodar">
+          <h3>Glodari</h3>
+          <p>Zamorčići, hrčci i ostali sitni ljubimci.</p>
+          <span class="more">5 rasa →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Two-column promo ===== -->
+  <section class="section">
+    <div class="promo-2">
+      <div class="promo teal">
+        <div>
+          <h3>Pomoć kada je<br>najpotrebnija</h3>
+          <p>Klub povezuje odgajivače sa veterinarima koji su specijalizovani za sitne ljubimce. Saznajte koja je pomoć dostupna i kome da se obratite.</p>
+        </div>
+        <a href="#" class="btn">Naše usluge</a>
+      </div>
+      <div class="promo image warning">
+        <span class="warn-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="12" height="12">
+            <path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          Zakonska napomena
+        </span>
+        <h3>Divlje ptice nisu ljubimci</h3>
+        <p>Hvatanje, držanje i prodaja zaštićenih divljih vrsta zabranjeni su Zakonom o zaštiti prirode — propisane kazne idu do <strong>2.000.000 RSD</strong>.</p>
+        <a href="#" class="btn">Pročitaj propise</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Three-column promo ===== -->
+  <section class="section">
+    <div class="promo-3">
+      <div class="card">
+        <div class="img"><img src="../images/kunic.jpg" alt="Kunić"></div>
+        <h3>Baza priznatih rasa</h3>
+        <p>Pregled 124 priznatih rasa kunića — sa standardima, fotografijama i imenima registrovanih odgajivača u Srbiji i regionu.</p>
+        <a href="#" class="btn-teal">Pogledaj rase</a>
+      </div>
+      <div class="card">
+        <div class="img"><img src="../images/golub.jpg" alt="Golub"></div>
+        <h3>Klub i članstvo</h3>
+        <p>Učlanite se u malecki.rs. Članovi dobijaju popust na izložbe, pristup mentorstvu odgajivača i mesečni bilten klupskih dešavanja.</p>
+        <a href="#" class="btn-teal">Učlani se</a>
+      </div>
+      <div class="card">
+        <div class="img"><img src="../images/kanarinac.jpg" alt="Kanarinac"></div>
+        <h3>Mentorstvo za nove odgajivače</h3>
+        <p>Spojićemo vas sa iskusnim odgajivačem iz vašeg kraja. Bez troškova — klupska podrška za prvih 12 meseci uzgoja.</p>
+        <a href="#" class="btn-teal">Saznaj više</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="logo-col">
+        <a href="#" class="logo">
+          <span class="mark">malecki<span class="dot">.</span>rs</span>
+          <span class="tag">KLUB LJUBITELJA SITNIH ŽIVOTINJA</span>
+        </a>
+        <p class="reg">© Klub ljubitelja sitnih životinja.<br>Registrovano udruženje, član EE — Entente Européenne.</p>
+      </div>
+      <div class="col">
+        <h4>Brzi linkovi</h4>
+        <ul>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Karijera</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Šta radimo</h4>
+        <ul>
+          <li><a href="#">Kalendar izložbi</a></li>
+          <li><a href="#">Edukacija</a></li>
+          <li><a href="#">Autohtone rase</a></li>
+          <li><a href="#">Volontiranje</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Pravno</h4>
+        <ul>
+          <li><a href="#">Uslovi korišćenja</a></li>
+          <li><a href="#">Politika privatnosti</a></li>
+          <li><a href="#">Kolačići</a></li>
+        </ul>
+      </div>
+      <div class="accred-col">
+        <div class="social" aria-label="Pratite nas">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="X">𝕏</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="YouTube">▶</a>
+        </div>
+        <div class="accred">
+          <span class="b">EE<small>član saveza</small></span>
+          <span class="b">FCI<small>partner</small></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
