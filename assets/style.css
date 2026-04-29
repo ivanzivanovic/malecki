@@ -306,11 +306,11 @@ img{max-width:100%;display:block}
 .cat .more{color:#fff;font-weight:900;font-size:12.5px;text-transform:uppercase;
   letter-spacing:.5px;text-shadow:0 1px 2px rgba(0,0,0,.5)}
 .cat:hover .more{color:#FFC0E0}
-.cat.golub{background-image:url('../../images/golub.jpg')}
-.cat.zivin{background-image:url('../../images/koka.jpg')}
-.cat.kunic{background-image:url('../../images/kunic.jpg')}
-.cat.ptice{background-image:url('../../images/kanarinac.jpg')}
-.cat.glodar{background-image:url('../../images/hrcak.jpg')}
+.cat.golub{background-image:url('images/golub.jpg')}
+.cat.zivin{background-image:url('images/koka.jpg')}
+.cat.kunic{background-image:url('images/kunic.jpg')}
+.cat.ptice{background-image:url('images/kanarinac.jpg')}
+.cat.glodar{background-image:url('images/hrcak.jpg')}
 
 /* ===== Two-column promo ===== */
 .section{max-width:1280px;margin:0 auto;padding:36px 32px}
