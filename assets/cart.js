@@ -39,10 +39,56 @@
   // ---- Header badge ----
   function renderBadge(n) {
     var badge = document.querySelector('.cart-count');
-    if (!badge) return;
-    badge.textContent = n;
-    if (n > 0) badge.removeAttribute('hidden');
-    else badge.setAttribute('hidden', '');
+    var btn = document.querySelector('.cart-btn');
+    if (badge) {
+      badge.textContent = n;
+      if (n > 0) badge.removeAttribute('hidden');
+      else badge.setAttribute('hidden', '');
+    }
+    if (btn) {
+      if (n > 0) btn.classList.remove('empty');
+      else btn.classList.add('empty');
+    }
+  }
+
+  // ---- Hamburger drawer ----
+  function setupDrawer() {
+    var hb = document.querySelector('.hamburger');
+    var drawer = document.querySelector('.drawer');
+    var backdrop = document.querySelector('.drawer-backdrop');
+    if (!hb || !drawer || !backdrop) return;
+
+    function open() {
+      drawer.removeAttribute('hidden');
+      backdrop.removeAttribute('hidden');
+      requestAnimationFrame(function () {
+        drawer.classList.add('open');
+        backdrop.classList.add('open');
+      });
+      hb.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      hb.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      setTimeout(function () {
+        if (!drawer.classList.contains('open')) {
+          drawer.setAttribute('hidden', '');
+          backdrop.setAttribute('hidden', '');
+        }
+      }, 260);
+    }
+
+    hb.addEventListener('click', open);
+    backdrop.addEventListener('click', close);
+    drawer.querySelectorAll('.drawer-close, .drawer-nav a, .drawer-cta').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) close();
+    });
   }
 
   // ---- Read product info from a .prod card on the shop page ----
@@ -201,4 +247,5 @@
   renderBadge(getTotalCount());
   attachShopButtons();
   renderCartPage();
+  setupDrawer();
 })();
